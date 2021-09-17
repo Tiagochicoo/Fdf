@@ -6,7 +6,7 @@
 /*   By: tpereira <tpereira@42Lisboa.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 23:02:16 by tpereira          #+#    #+#             */
-/*   Updated: 2021/09/17 17:08:22 by tpereira         ###   ########.fr       */
+/*   Updated: 2021/09/17 17:17:35 by tpereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdlib.h>
 # include <string.h>
 # include "get_next_line.h"
+# include "./ft_printf.h"
 
 int				ft_putchar(char c);
 int				ft_putstr(char *str);

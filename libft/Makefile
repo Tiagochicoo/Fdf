@@ -6,7 +6,7 @@
 #    By: tpereira <tpereira@42Lisboa.com>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/08 22:20:21 by tpereira          #+#    #+#              #
-#    Updated: 2021/09/17 17:05:56 by tpereira         ###   ########.fr        #
+#    Updated: 2021/09/17 18:29:02 by tpereira         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ all:        $(NAME)
 $(NAME):	$(OBJS)
 	ar -rcs $(NAME) $(OBJS)
 clean:
-	rm -f *.o
+	rm -f ./srcs/*.o
 soclean:    clean
 	rm -f $(SO)
 fclean:     clean

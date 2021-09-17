@@ -1,42 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.c                                              :+:      :+:    :+:   */
+/*   read_arg.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tpereira <tpereira@42Lisboa.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/09 17:27:30 by tpereira          #+#    #+#             */
-/*   Updated: 2021/09/17 18:25:46 by tpereira         ###   ########.fr       */
+/*   Created: 2021/04/10 12:55:10 by tpereira          #+#    #+#             */
+/*   Updated: 2021/05/26 15:25:34 by tpereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/fdf.h"
-#include <mlx.h>
+#include "ft_printf.h"
 
-int	dela_key(int key, void *data)
+t_arg	read_arg(char *input, va_list *args)
 {
-	ft_printf("%d", key);
-	return (0);
-}
+	t_arg	arg_struct;
 
-int	main(int argc, char **argv)
-{
-	int	i;
-	int	ii;
-	fdf *data;
-
-	i = 0;
-	data = (fdf*)malloc(sizeof(fdf));
-	read_file(argv[1], data);
-	while (i < data->height)
-	{
-		ii = 0;
-		while (ii < data->width)
-		{
-			printf("%d ", data->z_matrix[i][ii]);
-			ii++;
-		}
-		printf("\n");
-		i++;
-	}
+	init_struct(&arg_struct);
+	set_struct(input, &arg_struct, args);
+	apply_widths_and_flags(&arg_struct);
+	return (arg_struct);
 }
