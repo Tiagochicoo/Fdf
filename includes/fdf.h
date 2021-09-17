@@ -1,23 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.c                                              :+:      :+:    :+:   */
+/*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tpereira <tpereira@42Lisboa.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/09 17:27:30 by tpereira          #+#    #+#             */
-/*   Updated: 2021/09/17 16:59:25 by tpereira         ###   ########.fr       */
+/*   Created: 2021/09/17 16:21:52 by tpereira          #+#    #+#             */
+/*   Updated: 2021/09/17 16:30:33 by tpereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/fdf.h"
+#ifndef FDF_H
+# define FDF_H
+
+#include "../libft/includes/libft.h"
 #include <mlx.h>
 
-int	main(int argc, char **argv)
+
+typedef struct 
 {
-	fdf *data;
+	int	width;
+	int	height;
+	int	**z_matrix;
 
-	data = (fdf*)malloc(sizeof(fdf));
+	void	*mlx_ptr;
+	void	*win_ptr;
+}				fdf;
 
 
-}
+#endif

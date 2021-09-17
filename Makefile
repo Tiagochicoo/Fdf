@@ -6,7 +6,7 @@
 #    By: tpereira <tpereira@42Lisboa.com>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/11 10:19:16 by tpereira          #+#    #+#              #
-#    Updated: 2021/09/15 20:01:33 by tpereira         ###   ########.fr        #
+#    Updated: 2021/09/17 17:07:43 by tpereira         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,13 +23,14 @@ all :
 	@printf "\e[38;5;46m✅   fdf build successfull  ✅ \e[0m\n"
 
 clean :
-	@make -s clean -C libft 
+	@make -s clean -C libft
 	@make -s clean -C MinilibX 
 	@rm -rf ./srcs/*.o
 	@printf "\e[31;5;200m🚮️ 	Clean complete      🚮️\e[0m\n"
 
 fclean : clean
 	@make -s fclean -C libft
+	@make -s clean -C MinilibX
 	@rm -rf $(FDF)
 
 re :	fclean all

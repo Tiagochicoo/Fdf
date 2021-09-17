@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpereira <tpereira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tpereira <tpereira@42Lisboa.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 23:02:16 by tpereira          #+#    #+#             */
-/*   Updated: 2021/08/19 21:04:57 by tpereira         ###   ########.fr       */
+/*   Updated: 2021/09/17 17:08:22 by tpereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <string.h>
+# include "get_next_line.h"
 
 int				ft_putchar(char c);
 int				ft_putstr(char *str);
@@ -87,5 +88,7 @@ wchar_t			*ft_wstrdup(const wchar_t *wstr);
 wchar_t			*ft_wchrtostr(wchar_t wchar);
 char			*ft_itoabase(long num, int base);
 char			*ft_strrev(char *str);
+int				ft_count_words(char *str, char c);
+int				get_next_line(int fd, char **line);
 
 #endif
