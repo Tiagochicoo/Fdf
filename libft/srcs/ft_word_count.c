@@ -1,32 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_count_words.c                                   :+:      :+:    :+:   */
+/*   ft_word_count.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tpereira <tpereira@42Lisboa.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 16:41:58 by tpereira          #+#    #+#             */
-/*   Updated: 2021/09/17 16:46:17 by tpereira         ###   ########.fr       */
+/*   Updated: 2021/09/20 18:00:43 by tpereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_count_words(char *str, char c)
+static long long	ft_word_count(char *str, char charset)
 {
-	int	i;
-	int	word_count;
+	long long	count;
 
-	i = 0;
-	word_count = 0;
-	while (str[i])
+	count = 0;
+	while (*str)
 	{
-		while (str[i] == c && str[i] != '\0')
-			i++;
-		if (str[i])
-			word_count++;
-		while (str[i] != c && str[i] != '\0')
-			i++;
+		if (*str != charset)
+		{
+			++count;
+			while (*str && *str != charset)
+				++str;
+		}
+		if (*str != 0)
+			str++;
 	}
-	return (word_count);
+	return (count);
 }

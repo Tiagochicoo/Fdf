@@ -6,7 +6,7 @@
 /*   By: tpereira <tpereira@42Lisboa.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 23:02:16 by tpereira          #+#    #+#             */
-/*   Updated: 2021/09/17 17:17:35 by tpereira         ###   ########.fr       */
+/*   Updated: 2021/09/20 18:02:14 by tpereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ wchar_t			*ft_wstrdup(const wchar_t *wstr);
 wchar_t			*ft_wchrtostr(wchar_t wchar);
 char			*ft_itoabase(long num, int base);
 char			*ft_strrev(char *str);
-int				ft_count_words(char *str, char c);
 int				get_next_line(int fd, char **line);
+static long long ft_word_count(char *str, char charset);
 
 #endif
