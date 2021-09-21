@@ -6,31 +6,11 @@
 /*   By: tpereira <tpereira@42Lisboa.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 16:25:21 by tpereira          #+#    #+#             */
-/*   Updated: 2021/09/20 18:24:24 by tpereira         ###   ########.fr       */
+/*   Updated: 2021/09/21 16:41:20 by tpereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
-
-
-static long long	word_count(char *str, char charset)
-{
-	long long	count;
-
-	count = 0;
-	while (*str)
-	{
-		if (*str != charset)
-		{
-			++count;
-			while (*str && *str != charset)
-				++str;
-		}
-		if (*str != 0)
-			str++;
-	}
-	return (count);
-}
 
 int	get_height(char *filename)
 {
@@ -57,8 +37,9 @@ int	get_width(char *filename)
 
 	fd = open(filename, O_RDONLY, 0);
 	get_next_line(fd, &line);
-	width = word_count(line, ' ');
+	width = (int)ft_word_count(line, ' ');
 	free(line);
+	line = NULL;
 	close(fd);
 	return (width);
 }
@@ -67,18 +48,14 @@ void	fill_matrix(int *z_line, char *line)
 {
 	int		i;
 	char	**nums;
-	int		num;
 
 	i = 0;
 	nums = ft_split(line, ' ');
 	while(nums[i])
 	{
-		num = atoi(nums[i]);
-		z_line[i] = num;
+		z_line[i] = atoi(nums[i]);
 		i++;
-		free(nums[i]);
 	}
-	free(nums);
 }
 
 void	read_file(char *filename, fdf *data)
@@ -96,7 +73,7 @@ void	read_file(char *filename, fdf *data)
 		data->z_matrix[i++] = (int *)malloc(sizeof(int) * (data->width + 1));
 	fd = open(filename, O_RDONLY, 0);
 	i = 0;
-	while (get_next_line(fd, &line) == 1)
+	while (get_next_line(fd, &line))
 	{
 		fill_matrix(data->z_matrix[i], line);
 		free(line);
