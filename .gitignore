@@ -1,1 +1,7 @@
-*.0
+*.swp
+*.DStore
+*a.out
+*.o
+*.a
+*.so
+.*
