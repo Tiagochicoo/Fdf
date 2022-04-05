@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpereira <tpereira@42Lisboa.com>           +#+  +:+       +#+        */
+/*   By: tpereira <tpereira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 17:27:30 by tpereira          #+#    #+#             */
-/*   Updated: 2021/09/21 16:44:41 by tpereira         ###   ########.fr       */
+/*   Updated: 2022/04/05 17:27:11 by tpereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ int	main(int argc, char **argv)
 		j = 0;
 		while (j < data->width)
 		{
-			printf("%3d ", data->z_matrix[i][j]);
+			printf("%3d", data->z_matrix[i][j]);
 			j++;
 		}
 		printf("\n");

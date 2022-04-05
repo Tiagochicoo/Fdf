@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_file.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpereira <tpereira@42Lisboa.com>           +#+  +:+       +#+        */
+/*   By: tpereira <tpereira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 16:25:21 by tpereira          #+#    #+#             */
-/*   Updated: 2021/09/21 16:41:20 by tpereira         ###   ########.fr       */
+/*   Updated: 2022/04/05 17:44:43 by tpereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ int	get_height(char *filename)
 	int		fd;
 	int		height;
 
-	fd = open(filename, O_RDONLY, 0);
 	height = 0;
+	fd = open(filename, O_RDONLY, 0);
 	while(get_next_line(fd, &line))
 	{
 		height++;
