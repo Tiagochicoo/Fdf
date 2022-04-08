@@ -6,7 +6,7 @@
 /*   By: tpereira <tpereira@42Lisboa.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 17:27:30 by tpereira          #+#    #+#             */
-/*   Updated: 2022/04/08 18:02:41 by tpereira         ###   ########.fr       */
+/*   Updated: 2022/04/08 18:34:21 by tpereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,24 +113,17 @@ int	deal_key(int key, void *data)
 
 int	main(int argc, char **argv)
 {
-	int	i;
-	int	j;
 	fdf *data;
 
-	i = 0;
 	if (argc > 1)
 		ft_printf("\n");
 	data = (fdf*)malloc(sizeof(fdf));
 	read_file(argv[1], data);
-	while (i < data->height)
-	{
-		j = 0;
-		while (j < data->width)
-		{
-			printf("%3d", data->z_matrix[i][j]);
-			j++;
-		}
-		printf("\n");
-		i++;
-	}
+	
+	data->mlx_ptr = mlx_init();
+	data->win_ptr = mlx_new_window(data->mlx_ptr, 1000, 1000, "FDF");
+	
+	bresenham(10, 10, 600, 300, data);
+	mlx_key_hook(data->win_ptr, deal_key, NULL);
+	mlx_loop(data->mlx_ptr);
 }

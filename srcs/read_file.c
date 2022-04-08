@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_file.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpereira <tpereira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tpereira <tpereira@42Lisboa.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 16:25:21 by tpereira          #+#    #+#             */
-/*   Updated: 2022/04/05 17:44:43 by tpereira         ###   ########.fr       */
+/*   Updated: 2022/04/08 18:33:40 by tpereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ void	read_file(char *filename, fdf *data)
 	while (get_next_line(fd, &line))
 	{
 		fill_matrix(data->z_matrix[i], line);
-		free(line);
 		i++;
 	}
 	close(fd);
