@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpereira <tpereira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tpereira <tpereira@42Lisboa.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 17:27:30 by tpereira          #+#    #+#             */
-/*   Updated: 2022/04/05 17:27:11 by tpereira         ###   ########.fr       */
+/*   Updated: 2022/04/08 18:02:41 by tpereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,8 @@
 
 int	deal_key(int key, void *data)
 {
+	if (data)
+		ft_printf("\n");
 	ft_printf("%d", key);
 	return (0);
 }
@@ -116,6 +118,8 @@ int	main(int argc, char **argv)
 	fdf *data;
 
 	i = 0;
+	if (argc > 1)
+		ft_printf("\n");
 	data = (fdf*)malloc(sizeof(fdf));
 	read_file(argv[1], data);
 	while (i < data->height)
