@@ -6,7 +6,7 @@
 /*   By: tpereira <tpereira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 18:08:41 by tpereira          #+#    #+#             */
-/*   Updated: 2022/04/11 19:10:48 by tpereira         ###   ########.fr       */
+/*   Updated: 2022/04/11 19:12:17 by tpereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,10 @@ void	bresenham(float x, float y, float x1, float y1, fdf*data)
 	// ISOMETRIC (3D)
 	//isometric(&x, &y, z);
 	//isometric(&x1, &y1, z1);
-	x += 150;
-	y += 150;
-	x1 += 150;
-	y1 += 150;
+	x += data->shift_x;
+	y += data->shift_y;
+	x1 += data->shift_x;
+	y1 += data->shift_y;
 
 	max = MAX(MOD(x_step), MOD(y_step));
 	x_step /= max;

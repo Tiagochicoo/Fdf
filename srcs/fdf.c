@@ -6,7 +6,7 @@
 /*   By: tpereira <tpereira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 17:27:30 by tpereira          #+#    #+#             */
-/*   Updated: 2022/04/11 19:02:18 by tpereira         ###   ########.fr       */
+/*   Updated: 2022/04/11 19:33:37 by tpereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,14 +103,20 @@
 #include "../includes/fdf.h"
 #include <mlx.h>
 
-int	deal_key(int key, void *data)
+int	deal_key(int key, fdf *data)
 {
-	if (data)
-		ft_printf("\n");
+	if (key == 126)
+		data->shift_y -= 10;
+	if (key == 125)
+		data->shift_y += 10;
+	if (key == 123)
+		data->shift_x -= 10;
+	if (key == 124)
+		data->shift_x += 10;
 	if (key == 53)
 		exit (0);
-	else
-		ft_printf("%d\n", key);
+	mlx_clear_window(data->mlx_ptr, data->win_ptr);
+	draw(data);
 	return (0);
 }
 
@@ -124,7 +130,7 @@ int	main(int argc, char **argv)
 		read_file(argv[1], data);
 		data->mlx_ptr = mlx_init();
 		data->win_ptr = mlx_new_window(data->mlx_ptr, 1920, 1080, "FDF");
-		data->zoom = 20;
+		data->zoom = 35;
 		draw(data);
 		mlx_key_hook(data->win_ptr, deal_key, NULL);
 		mlx_loop(data->mlx_ptr);

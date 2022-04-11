@@ -6,7 +6,7 @@
 /*   By: tpereira <tpereira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 16:21:52 by tpereira          #+#    #+#             */
-/*   Updated: 2022/04/11 18:40:03 by tpereira         ###   ########.fr       */
+/*   Updated: 2022/04/11 19:11:31 by tpereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ typedef struct
 	int		**z_matrix;
 	int		zoom;
 	int		color;
+	int		shift_x;
+	int		shift_y;
 
 	void	*mlx_ptr;
 	void	*win_ptr;
