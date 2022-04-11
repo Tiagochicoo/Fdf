@@ -6,7 +6,7 @@
 /*   By: tpereira <tpereira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 17:27:30 by tpereira          #+#    #+#             */
-/*   Updated: 2022/04/11 18:13:57 by tpereira         ###   ########.fr       */
+/*   Updated: 2022/04/11 19:02:18 by tpereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ int	main(int argc, char **argv)
 		data = (fdf*)malloc(sizeof(fdf));
 		read_file(argv[1], data);
 		data->mlx_ptr = mlx_init();
-		data->win_ptr = mlx_new_window(data->mlx_ptr, 1000, 1000, "FDF");
+		data->win_ptr = mlx_new_window(data->mlx_ptr, 1920, 1080, "FDF");
 		data->zoom = 20;
 		draw(data);
 		mlx_key_hook(data->win_ptr, deal_key, NULL);
