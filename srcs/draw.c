@@ -6,7 +6,7 @@
 /*   By: tpereira <tpereira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 18:08:41 by tpereira          #+#    #+#             */
-/*   Updated: 2022/04/11 18:27:21 by tpereira         ###   ########.fr       */
+/*   Updated: 2022/04/11 18:29:32 by tpereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ void	bresenham(float x, float y, float x1, float y1, fdf*data)
 	float	y_step;
 	int		max;
 	int		z;
-	//int		z1;
+	int		z1;
 
 	z = data->z_matrix[(int)y][(int)x];
-	//z1 = data->z_matrix[(int)y1][(int)x1];
+	z1 = data->z_matrix[(int)y1][(int)x1];
 
 	x *= data->zoom;
 	y *= data->zoom;
@@ -57,10 +57,10 @@ void	draw(fdf*data)
 	int	y;
 
 	y = 0;
-	while (y < data->height)
+	while (y < data->height - 1)
 	{
 		x = 0;
-		while (x < data->width)
+		while (x < data->width - 1)
 		{
 			bresenham(x, y, x + 1, y, data);
 			bresenham(x, y, x, y + 1, data);
