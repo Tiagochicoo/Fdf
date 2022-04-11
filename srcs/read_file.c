@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_file.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpereira <tpereira@42Lisboa.com>           +#+  +:+       +#+        */
+/*   By: tpereira <tpereira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 16:25:21 by tpereira          #+#    #+#             */
-/*   Updated: 2022/04/08 18:33:40 by tpereira         ###   ########.fr       */
+/*   Updated: 2022/04/11 18:25:24 by tpereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ int	get_width(char *filename)
 	get_next_line(fd, &line);
 	width = (int)ft_word_count(line, ' ');
 	free(line);
-	line = NULL;
 	close(fd);
 	return (width);
 }
@@ -53,7 +52,7 @@ void	fill_matrix(int *z_line, char *line)
 	nums = ft_split(line, ' ');
 	while(nums[i])
 	{
-		z_line[i] = atoi(nums[i]);
+		z_line[i] = ft_atoi(nums[i]);
 		i++;
 	}
 }
@@ -76,6 +75,7 @@ void	read_file(char *filename, fdf *data)
 	while (get_next_line(fd, &line))
 	{
 		fill_matrix(data->z_matrix[i], line);
+		free(line);
 		i++;
 	}
 	close(fd);
