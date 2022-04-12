@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpereira <tpereira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tpereira <tpereira@42Lisboa.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 18:08:41 by tpereira          #+#    #+#             */
-/*   Updated: 2022/04/11 19:12:17 by tpereira         ###   ########.fr       */
+/*   Updated: 2022/04/11 22:38:50 by tpereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,14 @@
 
 #define MAX(a, b) (a > b ? a : b)
 #define MOD(a) ((a < 0) ? -a : a)
+
+void	my_mlx_pixel_put(img *img, int x, int y, int color)
+{
+	char	*dst;
+
+	dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
+	*(unsigned int*)dst = color;
+}
 
 float	mod(float i)
 {
@@ -26,16 +34,16 @@ void	isometric(float *x, float *y, int z)
 	*y = (*x + *y) * sin(0.8) - z;
 }
 
-void	bresenham(float x, float y, float x1, float y1, fdf*data)
+void	bresenham(float x, float y, float x1, float y1, fdf*data, img*img)
 {
 	float	x_step;
 	float	y_step;
 	int		max;
 	int		z;
-	int		z1;
+	//int		z1;
 
 	z = data->z_matrix[(int)y][(int)x];
-	z1 = data->z_matrix[(int)y1][(int)x1];
+	//z1 = data->z_matrix[(int)y1][(int)x1];
 	// ZOOM
 	x *= data->zoom;
 	y *= data->zoom;
@@ -59,13 +67,14 @@ void	bresenham(float x, float y, float x1, float y1, fdf*data)
 	y_step /= max;
 	while ((int)(x - x1) || (int)(y - y1))
 	{
-		mlx_pixel_put(data->mlx_ptr, data->win_ptr, x, y,  data->color);
+		my_mlx_pixel_put(img, x, y,  data->color);
 		x += x_step;
 		y += y_step;
 	}
+	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, img, x, y);
 }
 
-void	draw(fdf*data)
+void	draw(fdf*data, img*img)
 {
 	int	x;
 	int	y;
@@ -77,9 +86,9 @@ void	draw(fdf*data)
 		while (x < data->width)
 		{
 			if (x < data->width - 1)
-				bresenham(x, y, x + 1, y, data);
+				bresenham(x, y, x + 1, y, data, img);
 			if (y < data->height - 1)
-				bresenham(x, y, x, y + 1, data);
+				bresenham(x, y, x, y + 1, data, img);
 			x++;
 		}
 		y++;

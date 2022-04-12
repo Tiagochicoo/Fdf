@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpereira <tpereira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tpereira <tpereira@42Lisboa.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 17:27:30 by tpereira          #+#    #+#             */
-/*   Updated: 2022/04/11 19:33:37 by tpereira         ###   ########.fr       */
+/*   Updated: 2022/04/12 19:40:30 by tpereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,36 +103,90 @@
 #include "../includes/fdf.h"
 #include <mlx.h>
 
-int	deal_key(int key, fdf *data)
+// int	deal_key(int key, fdf *data)
+// {
+// 	if (key == 126)
+// 		data->shift_y -= 10;
+// 	if (key == 125)
+// 		data->shift_y += 10;
+// 	if (key == 123)
+// 		data->shift_x -= 10;
+// 	if (key == 124)
+// 		data->shift_x += 10;
+// 	if (key == 53)
+// 		exit (0);
+// 	mlx_clear_window(data->mlx_ptr, data->win_ptr);
+// 	draw(data);
+// 	return (0);
+// }
+
+int	key_hook(int keycode, fdf *data)
 {
-	if (key == 126)
-		data->shift_y -= 10;
-	if (key == 125)
-		data->shift_y += 10;
-	if (key == 123)
-		data->shift_x -= 10;
-	if (key == 124)
-		data->shift_x += 10;
-	if (key == 53)
-		exit (0);
-	mlx_clear_window(data->mlx_ptr, data->win_ptr);
-	draw(data);
+	if (data)
+		ft_printf("keycode -> %d", keycode);
+	if (keycode == 65307)
+	{
+		printf("Closing window, bye!\n");
+		exit(0);
+	}
+	else
+		ft_printf("keycode -> %d\n", keycode);
+	// if (keycode == 65362)
+	// 	data->shift_y -= 10;
+	// else if (keycode == 65361)
+	// 	data->shift_y += 10;
+	// else if (keycode == 65364)
+	// 	data->shift_x -= 10;
+	// else if (keycode == 65363)
+	// 	data->shift_x += 10;
+	//mlx_destroy_image(data->mlx_ptr, data->img);
+	//draw(data, data->img);
 	return (0);
+}
+
+int	click_hook(int keycode)
+{
+	if (keycode < 10)
+	{
+		if (keycode > 3 && keycode < 8)
+			printf("Mouse wheel spinning\n");
+		else
+			printf("Click!\n");
+	}
+	else
+		printf("You pressed the %d key!\n", keycode);
+	return (0);
+}
+
+int	exit_hook(void)
+{
+	exit(0);
 }
 
 int	main(int argc, char **argv)
 {
 	fdf *data;
+	img *image;
 
 	if (argc > 1)
 	{
 		data = (fdf*)malloc(sizeof(fdf));
+		image = (img *)malloc(sizeof(img));
 		read_file(argv[1], data);
 		data->mlx_ptr = mlx_init();
 		data->win_ptr = mlx_new_window(data->mlx_ptr, 1920, 1080, "FDF");
+		image->img = mlx_new_image(data->mlx_ptr, 1920, 1080);
+		image->addr = mlx_get_data_addr(image, &image->bits_per_pixel, &image->line_length, &image->endian);
+		data->img = image;
+		//mlx_string_put(data->mlx_ptr, data->win_ptr, 500, 500, 0x424242, "Testing!!");
 		data->zoom = 35;
-		draw(data);
-		mlx_key_hook(data->win_ptr, deal_key, NULL);
+		//draw(data, img);
+
+		//mlx_key_hook(data->win_ptr, deal_key, NULL);
+		//mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, img, 0, 0);
+		mlx_key_hook(data->win_ptr, key_hook, NULL);
+		//mlx_hook(data->win_ptr, 04, 1L<<2,  click_hook, &data); // 04 keys+buttons | 02 only keyboard
+		mlx_hook(data->win_ptr, 17, 0, exit_hook, &image);
 		mlx_loop(data->mlx_ptr);
 	}
 	return (0);

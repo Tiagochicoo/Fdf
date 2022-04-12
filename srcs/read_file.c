@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_file.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpereira <tpereira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tpereira <tpereira@42Lisboa.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 16:25:21 by tpereira          #+#    #+#             */
-/*   Updated: 2022/04/11 19:26:14 by tpereira         ###   ########.fr       */
+/*   Updated: 2022/04/11 22:30:15 by tpereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,10 @@ void	fill_matrix(int *z_line, char *line)
 	while(nums[i])
 	{
 		z_line[i] = ft_atoi(nums[i]);
+		//free(nums[i]);
 		i++;
 	}
-	nums[i] = 0;
+	//free(nums);              ?????????????????? WHY ??????????????????
 }
 
 void	read_file(char *filename, fdf *data)
