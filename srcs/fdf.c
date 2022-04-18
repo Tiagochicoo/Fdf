@@ -6,7 +6,7 @@
 /*   By: tpereira <tpereira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 17:27:30 by tpereira          #+#    #+#             */
-/*   Updated: 2022/04/18 18:42:58 by tpereira         ###   ########.fr       */
+/*   Updated: 2022/04/18 19:41:18 by tpereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,26 +122,17 @@
 
 int	key_hook(int keycode, fdf *data)
 {
-	if (data)
-		ft_printf("keycode -> %d", keycode);
-	if (keycode == 65307 || keycode == 53)
-	{
-		printf("Closing window, bye!\n");
-		exit(0);
-	}
-	else
-		ft_printf("keycode -> %d\n", keycode);
-	if ((keycode > 65360 && keycode < 65365) || (keycode < 127  && keycode > 122))
-		mlx_clear_window(data->mlx_ptr, data->win_ptr);
-	// if (keycode == 65362 || keycode == 126)
-	// 	data->shift_y -= 10;
-	// else if (keycode == 65361 || keycode == 125)
-	// 	data->shift_y += 10;
-	// else if (keycode == 65364 || keycode == 123)
-	// 	data->shift_x -= 10;
-	// else if (keycode == 65363 || keycode == 124)
-	// 	data->shift_x += 10;
-	// draw(data);
+	
+	if (keycode == 65362 || keycode == 126)
+		data->shift_y -= 10;
+	else if (keycode == 65361 || keycode == 125)
+		data->shift_y += 10;
+	else if (keycode == 65364 || keycode == 123)
+		data->shift_x -= 10;
+	else if (keycode == 65363 || keycode == 124)
+		data->shift_x += 10;
+	mlx_clear_window(data->mlx_ptr, data->win_ptr);
+	draw(data);
 	return (0);
 }
 
@@ -173,7 +164,7 @@ int	main(int argc, char **argv)
 	{
 		data = (fdf*)malloc(sizeof(fdf));	
 		image = (img *)malloc(sizeof(img));
-		read_file(argv[1], data);
+		read_file(ft_strdup(argv[1]), data);
 		data->mlx_ptr = mlx_init();
 		data->win_ptr = mlx_new_window(data->mlx_ptr, 1920, 1080, "FDF");
 		image = mlx_new_image(data->mlx_ptr, 1920, 1080);
@@ -182,9 +173,9 @@ int	main(int argc, char **argv)
 		data->zoom = 20;
 		draw(data);
 
-		mlx_key_hook(data->win_ptr, key_hook, NULL);
-		mlx_hook(data->win_ptr, 04, 1L<<2,  click_hook, NULL); // 04 keys+buttons | 02 only keyboard
-		mlx_hook(data->win_ptr, 17, 0, exit_hook, NULL);
+		mlx_key_hook(data->win_ptr, key_hook, data);
+		mlx_hook(data->win_ptr, 04, 1L<<2,  click_hook, data); // 04 keys+buttons | 02 only keyboard
+		mlx_hook(data->win_ptr, 17, 0, exit_hook, data);
 		mlx_loop(data->mlx_ptr);
 	}
 	return (0);
