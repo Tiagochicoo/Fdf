@@ -6,7 +6,7 @@
 /*   By: tpereira <tpereira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 18:08:41 by tpereira          #+#    #+#             */
-/*   Updated: 2022/04/18 17:01:01 by tpereira         ###   ########.fr       */
+/*   Updated: 2022/04/18 18:06:57 by tpereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	my_mlx_pixel_put(img *img, int x, int y, int color)
 
 float	mod(float i)
 {
-	return (i< 0) ? -i : i;
+	return (i < 0) ? -i : i;
 }
 
 void	isometric(float *x, float *y, int z)
@@ -40,28 +40,28 @@ void	bresenham(float x, float y, float x1, float y1, fdf*data)
 	float	y_step;
 	int		max;
 	int		z;
-	//int		z1;
+	// int		z1;
 
 	z = data->z_matrix[(int)y][(int)x];
-	//z1 = data->z_matrix[(int)y1][(int)x1];
+	// z1 = data->z_matrix[(int)y1][(int)x1];
 	// ZOOM
 	x *= data->zoom;
 	y *= data->zoom;
 	x1 *= data->zoom;
 	y1 *= data->zoom;
 	// COLOR
-	data->color = (z) > 0 ? 0xe80c0c : 0xffffff;
-	
-	x_step = x1 - x;
-	y_step = y1 - y;
+	data->color = (z) > 0 ? 0xe80c0c : 0xffffff;	
 	// ISOMETRIC (3D)
 	//isometric(&x, &y, z);
 	//isometric(&x1, &y1, z1);
+	// SHIFT
 	x += data->shift_x;
 	y += data->shift_y;
 	x1 += data->shift_x;
 	y1 += data->shift_y;
 
+	x_step = x1 - x;
+	y_step = y1 - y;
 	max = MAX(MOD(x_step), MOD(y_step));
 	x_step /= max;
 	y_step /= max;
@@ -71,7 +71,7 @@ void	bresenham(float x, float y, float x1, float y1, fdf*data)
 		x += x_step;
 		y += y_step;
 	}
-	//mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img, x, y);
+	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img, 300, 200);
 }
 
 void	draw(fdf*data)
