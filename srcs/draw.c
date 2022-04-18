@@ -6,7 +6,7 @@
 /*   By: tpereira <tpereira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 18:08:41 by tpereira          #+#    #+#             */
-/*   Updated: 2022/04/18 18:06:57 by tpereira         ###   ########.fr       */
+/*   Updated: 2022/04/18 18:49:18 by tpereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,20 +40,20 @@ void	bresenham(float x, float y, float x1, float y1, fdf*data)
 	float	y_step;
 	int		max;
 	int		z;
-	// int		z1;
+	int		z1;
 
 	z = data->z_matrix[(int)y][(int)x];
-	// z1 = data->z_matrix[(int)y1][(int)x1];
+	z1 = data->z_matrix[(int)y1][(int)x1];
 	// ZOOM
 	x *= data->zoom;
 	y *= data->zoom;
 	x1 *= data->zoom;
 	y1 *= data->zoom;
 	// COLOR
-	data->color = (z) > 0 ? 0xe80c0c : 0xffffff;	
+	data->color = (z || z1) > 0 ? 0xe80c0c : 0xffffff;	
 	// ISOMETRIC (3D)
-	//isometric(&x, &y, z);
-	//isometric(&x1, &y1, z1);
+	isometric(&x, &y, z);
+	isometric(&x1, &y1, z1);
 	// SHIFT
 	x += data->shift_x;
 	y += data->shift_y;

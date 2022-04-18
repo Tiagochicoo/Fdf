@@ -6,7 +6,7 @@
 /*   By: tpereira <tpereira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 17:27:30 by tpereira          #+#    #+#             */
-/*   Updated: 2022/04/18 18:07:28 by tpereira         ###   ########.fr       */
+/*   Updated: 2022/04/18 18:42:58 by tpereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,7 +175,7 @@ int	main(int argc, char **argv)
 		image = (img *)malloc(sizeof(img));
 		read_file(argv[1], data);
 		data->mlx_ptr = mlx_init();
-		data->win_ptr = mlx_new_window(data->mlx_ptr, 1000, 500, "FDF");
+		data->win_ptr = mlx_new_window(data->mlx_ptr, 1920, 1080, "FDF");
 		image = mlx_new_image(data->mlx_ptr, 1920, 1080);
 		image->addr = mlx_get_data_addr(image, &image->bits_per_pixel, &image->line_length, &image->endian);
 		data->img = image;
