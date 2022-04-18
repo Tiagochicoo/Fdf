@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpereira <tpereira@42Lisboa.com>           +#+  +:+       +#+        */
+/*   By: tpereira <tpereira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 18:08:41 by tpereira          #+#    #+#             */
-/*   Updated: 2022/04/11 22:38:50 by tpereira         ###   ########.fr       */
+/*   Updated: 2022/04/18 17:01:01 by tpereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	isometric(float *x, float *y, int z)
 	*y = (*x + *y) * sin(0.8) - z;
 }
 
-void	bresenham(float x, float y, float x1, float y1, fdf*data, img*img)
+void	bresenham(float x, float y, float x1, float y1, fdf*data)
 {
 	float	x_step;
 	float	y_step;
@@ -67,14 +67,14 @@ void	bresenham(float x, float y, float x1, float y1, fdf*data, img*img)
 	y_step /= max;
 	while ((int)(x - x1) || (int)(y - y1))
 	{
-		my_mlx_pixel_put(img, x, y,  data->color);
+		my_mlx_pixel_put(data->img, x, y, data->color);
 		x += x_step;
 		y += y_step;
 	}
-	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, img, x, y);
+	//mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img, x, y);
 }
 
-void	draw(fdf*data, img*img)
+void	draw(fdf*data)
 {
 	int	x;
 	int	y;
@@ -86,9 +86,9 @@ void	draw(fdf*data, img*img)
 		while (x < data->width)
 		{
 			if (x < data->width - 1)
-				bresenham(x, y, x + 1, y, data, img);
+				bresenham(x, y, x + 1, y, data);
 			if (y < data->height - 1)
-				bresenham(x, y, x, y + 1, data, img);
+				bresenham(x, y, x, y + 1, data);
 			x++;
 		}
 		y++;

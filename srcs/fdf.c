@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpereira <tpereira@42Lisboa.com>           +#+  +:+       +#+        */
+/*   By: tpereira <tpereira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 17:27:30 by tpereira          #+#    #+#             */
-/*   Updated: 2022/04/12 19:40:30 by tpereira         ###   ########.fr       */
+/*   Updated: 2022/04/18 17:02:50 by tpereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,10 +124,11 @@ int	key_hook(int keycode, fdf *data)
 {
 	if (data)
 		ft_printf("keycode -> %d", keycode);
-	if (keycode == 65307)
+	if (keycode == 65307 || keycode == 53)
 	{
+		mlx_destroy_image(data->mlx_ptr, data->img);
 		printf("Closing window, bye!\n");
-		exit(0);
+		//exit(0);
 	}
 	else
 		ft_printf("keycode -> %d\n", keycode);
@@ -167,26 +168,28 @@ int	main(int argc, char **argv)
 {
 	fdf *data;
 	img *image;
+	int	x;
+	int	y;
 
+	x = 0;
+	y = 0;
 	if (argc > 1)
 	{
-		data = (fdf*)malloc(sizeof(fdf));
+		data = (fdf*)malloc(sizeof(fdf));	
 		image = (img *)malloc(sizeof(img));
 		read_file(argv[1], data);
 		data->mlx_ptr = mlx_init();
 		data->win_ptr = mlx_new_window(data->mlx_ptr, 1920, 1080, "FDF");
-		image->img = mlx_new_image(data->mlx_ptr, 1920, 1080);
+		image = mlx_new_image(data->mlx_ptr, 1920, 1080);
 		image->addr = mlx_get_data_addr(image, &image->bits_per_pixel, &image->line_length, &image->endian);
 		data->img = image;
-		//mlx_string_put(data->mlx_ptr, data->win_ptr, 500, 500, 0x424242, "Testing!!");
-		data->zoom = 35;
-		//draw(data, img);
+		data->zoom = 100;
+		draw(data);
+		mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img, x, y);
 
-		//mlx_key_hook(data->win_ptr, deal_key, NULL);
-		//mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, img, 0, 0);
 		mlx_key_hook(data->win_ptr, key_hook, NULL);
-		//mlx_hook(data->win_ptr, 04, 1L<<2,  click_hook, &data); // 04 keys+buttons | 02 only keyboard
-		mlx_hook(data->win_ptr, 17, 0, exit_hook, &image);
+		mlx_hook(data->win_ptr, 04, 1L<<2,  click_hook, &data); // 04 keys+buttons | 02 only keyboard
+		mlx_hook(data->win_ptr, 17, 0, exit_hook, NULL);
 		mlx_loop(data->mlx_ptr);
 	}
 	return (0);
