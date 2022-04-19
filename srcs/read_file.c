@@ -6,7 +6,7 @@
 /*   By: tpereira <tpereira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 16:25:21 by tpereira          #+#    #+#             */
-/*   Updated: 2022/04/18 19:22:15 by tpereira         ###   ########.fr       */
+/*   Updated: 2022/04/19 18:19:04 by tpereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,7 @@ int	get_height(char *filename)
 	while(get_next_line(fd, &line))
 	{
 		height++;
-		if (line)
-			free(line);
+		free(line);
 	}
 	close(fd);
 	return (height);

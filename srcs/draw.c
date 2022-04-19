@@ -6,7 +6,7 @@
 /*   By: tpereira <tpereira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 18:08:41 by tpereira          #+#    #+#             */
-/*   Updated: 2022/04/18 18:49:18 by tpereira         ###   ########.fr       */
+/*   Updated: 2022/04/19 20:50:42 by tpereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	bresenham(float x, float y, float x1, float y1, fdf*data)
 		x += x_step;
 		y += y_step;
 	}
-	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img, 300, 200);
+	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img, 200, 300);
 }
 
 void	draw(fdf*data)
@@ -89,6 +89,8 @@ void	draw(fdf*data)
 				bresenham(x, y, x + 1, y, data);
 			if (y < data->height - 1)
 				bresenham(x, y, x, y + 1, data);
+			if (x >= data->width || y >= data->height)
+				break ;
 			x++;
 		}
 		y++;
