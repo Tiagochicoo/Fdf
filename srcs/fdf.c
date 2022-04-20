@@ -6,7 +6,7 @@
 /*   By: tpereira <tpereira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 17:27:30 by tpereira          #+#    #+#             */
-/*   Updated: 2022/04/19 19:01:07 by tpereira         ###   ########.fr       */
+/*   Updated: 2022/04/20 20:50:12 by tpereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,7 @@
 
 int	key_hook(int keycode, fdf *data)
 {
+	ft_printf("Keycode -> %d\n", keycode);
 	if (keycode == 69)
 		data->zoom += 5;
 	if (keycode == 78)
@@ -136,25 +137,26 @@ int	key_hook(int keycode, fdf *data)
 		data->shift_x -= 10;
 	else if (keycode == 65363 || keycode == 124)
 		data->shift_x += 10;
-	//mlx_clear_window(data->mlx_ptr, data->win_ptr);
-	mlx_destroy_image(data->mlx_ptr, data->img);
-	data->img = mlx_new_image(data->mlx_ptr, data->width * 50, data->height * 50);
-	data->img->addr = mlx_get_data_addr(data->img, &data->img->bits_per_pixel, &data->img->line_length, &data->img->endian);
+	mlx_clear_window(data->mlx_ptr, data->win_ptr);
+	//mlx_destroy_image(data->mlx_ptr, data->img);
+	// data->img = mlx_new_image(data->mlx_ptr, data->width * 50, data->height * 50);
+	// data->img->addr = mlx_get_data_addr(data->img, &data->img->bits_per_pixel, &data->img->line_length, &data->img->endian);
 	draw(data);
 	return (0);
 }
 
 int	mouse_hook(int keycode)
 {
-	if (keycode < 10)
+	if (keycode == 4)
 	{
-		if (keycode > 3 && keycode < 8)
-			printf("Mouse wheel spinning\n");
-		else
-			printf("Click!\n");
+		printf("Wheel up!\nKeycode - > %d", keycode);
 	}
-	else
-		printf("You pressed the %d key!\n", keycode);
+	else if (keycode == 5)
+		printf("Wheel down!\nKeycode - > %d", keycode);
+	//mlx_destroy_image(data->mlx_ptr, data->img);
+	//data->img = mlx_new_image(data->mlx_ptr, data->width * 50, data->height * 50);
+	//data->img->addr = mlx_get_data_addr(data->img, &data->img->bits_per_pixel, &data->img->line_length, &data->img->endian);
+	//draw(data);
 	return (0);
 }
 
@@ -174,15 +176,15 @@ int	main(int argc, char **argv)
 		image = (img *)malloc(sizeof(img));
 		read_file(ft_strdup(argv[1]), data);
 		data->mlx_ptr = mlx_init();
-		data->win_ptr = mlx_new_window(data->mlx_ptr, data->width + 500, data->height + 500, "FDF");
-		image = mlx_new_image(data->mlx_ptr, data->width * 50, data->height * 50);
-		image->addr = mlx_get_data_addr(image, &image->bits_per_pixel, &image->line_length, &image->endian);
-		data->img = image;
+		data->win_ptr = mlx_new_window(data->mlx_ptr, 1000, 1000, "FDF");
+		//image = mlx_new_image(data->mlx_ptr, data->width * 50, data->height * 50);
+		//image->addr = mlx_get_data_addr(image, &image->bits_per_pixel, &image->line_length, &image->endian);
+		//data->img = image;
 		data->zoom = 20;
 		draw(data);
 
 		mlx_key_hook(data->win_ptr, key_hook, data);
-		mlx_hook(data->win_ptr, 04, 1L<<2,  mouse_hook, data); // 04 keys+buttons | 02 only keyboard
+		mlx_hook(data->win_ptr, 4, (1L<<2),  mouse_hook, NULL); // 04 keys+buttons | 02 only keyboard
 		mlx_hook(data->win_ptr, 17, 0, exit_hook, data);
 		mlx_loop(data->mlx_ptr);
 	}

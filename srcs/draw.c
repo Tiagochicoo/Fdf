@@ -6,7 +6,7 @@
 /*   By: tpereira <tpereira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 18:08:41 by tpereira          #+#    #+#             */
-/*   Updated: 2022/04/19 20:50:42 by tpereira         ###   ########.fr       */
+/*   Updated: 2022/04/20 20:54:28 by tpereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,11 @@ void	bresenham(float x, float y, float x1, float y1, fdf*data)
 	y_step /= max;
 	while ((int)(x - x1) || (int)(y - y1))
 	{
-		my_mlx_pixel_put(data->img, x, y, data->color);
+		mlx_pixel_put(data->mlx_ptr, data->win_ptr, x, y, data->color);
 		x += x_step;
 		y += y_step;
 	}
-	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img, 200, 300);
+	//mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img, 100, 100);
 }
 
 void	draw(fdf*data)
