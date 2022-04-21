@@ -6,7 +6,7 @@
 /*   By: tpereira <tpereira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 17:27:30 by tpereira          #+#    #+#             */
-/*   Updated: 2022/04/20 20:50:12 by tpereira         ###   ########.fr       */
+/*   Updated: 2022/04/21 18:56:30 by tpereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@
 ** 5. adding bonuses (move, rotation, zoom)
 **        - when you press button on keyboard the func. mlx_key_hook(win_ptr, deal_key, NULL);
 **                   call the func. deal_key.
-**        - In the deal key func. you have to change some parameters, clear the window with
+**        - In the deal key func. you have to change some dataeters, clear the window with
 **                   mlx_clear_window(mlx_ptr, win_ptr); and redraw the picture
 ** ----------------
 ** 6. error handling
@@ -103,66 +103,20 @@
 #include "../includes/fdf.h"
 #include <mlx.h>
 
-// int	deal_key(int key, fdf *data)
-// {
-// 	if (key == 126)
-// 		data->shift_y -= 10;
-// 	if (key == 125)
-// 		data->shift_y += 10;
-// 	if (key == 123)
-// 		data->shift_x -= 10;
-// 	if (key == 124)
-// 		data->shift_x += 10;
-// 	if (key == 53)
-// 		exit (0);
-// 	mlx_clear_window(data->mlx_ptr, data->win_ptr);
-// 	draw(data);
-// 	return (0);
-// }
-
-int	key_hook(int keycode, fdf *data)
+void	print_menu(fdf*data)
 {
-	ft_printf("Keycode -> %d\n", keycode);
-	if (keycode == 69)
-		data->zoom += 5;
-	if (keycode == 78)
-		data->zoom -= 5;
-	if (keycode == 53)
-		exit(0);
-	if (keycode == 65362 || keycode == 126)
-		data->shift_y -= 10;
-	else if (keycode == 65361 || keycode == 125)
-		data->shift_y += 10;
-	else if (keycode == 65364 || keycode == 123)
-		data->shift_x -= 10;
-	else if (keycode == 65363 || keycode == 124)
-		data->shift_x += 10;
-	mlx_clear_window(data->mlx_ptr, data->win_ptr);
-	//mlx_destroy_image(data->mlx_ptr, data->img);
-	// data->img = mlx_new_image(data->mlx_ptr, data->width * 50, data->height * 50);
-	// data->img->addr = mlx_get_data_addr(data->img, &data->img->bits_per_pixel, &data->img->line_length, &data->img->endian);
-	draw(data);
-	return (0);
-}
+	char *menu;
 
-int	mouse_hook(int keycode)
-{
-	if (keycode == 4)
-	{
-		printf("Wheel up!\nKeycode - > %d", keycode);
-	}
-	else if (keycode == 5)
-		printf("Wheel down!\nKeycode - > %d", keycode);
-	//mlx_destroy_image(data->mlx_ptr, data->img);
-	//data->img = mlx_new_image(data->mlx_ptr, data->width * 50, data->height * 50);
-	//data->img->addr = mlx_get_data_addr(data->img, &data->img->bits_per_pixel, &data->img->line_length, &data->img->endian);
-	//draw(data);
-	return (0);
-}
-
-int	exit_hook(void)
-{
-	exit(0);
+	menu = "How to use:";
+	mlx_string_put(data->mlx_ptr, data->win_ptr, 15, 10, 0xffffff, menu);
+	menu = "up, down, left, right: move picture";
+	mlx_string_put(data->mlx_ptr, data->win_ptr, 15, 30, 0xffffff, menu);
+	menu = "+, -: zoom";
+	mlx_string_put(data->mlx_ptr, data->win_ptr, 15, 50, 0xffffff, menu);
+	menu = "*, / : perspective";
+	mlx_string_put(data->mlx_ptr, data->win_ptr, 15, 70, 0xffffff, menu);
+	menu = "f: full screen mode";
+	mlx_string_put(data->mlx_ptr, data->win_ptr, 15, 90, 0xffffff, menu);
 }
 
 int	main(int argc, char **argv)
@@ -175,18 +129,11 @@ int	main(int argc, char **argv)
 		data = (fdf*)malloc(sizeof(fdf));	
 		image = (img *)malloc(sizeof(img));
 		read_file(ft_strdup(argv[1]), data);
-		data->mlx_ptr = mlx_init();
-		data->win_ptr = mlx_new_window(data->mlx_ptr, 1000, 1000, "FDF");
-		//image = mlx_new_image(data->mlx_ptr, data->width * 50, data->height * 50);
-		//image->addr = mlx_get_data_addr(image, &image->bits_per_pixel, &image->line_length, &image->endian);
-		//data->img = image;
-		data->zoom = 20;
+		init(data, image);
 		draw(data);
+		print_menu(data);
 
-		mlx_key_hook(data->win_ptr, key_hook, data);
-		mlx_hook(data->win_ptr, 4, (1L<<2),  mouse_hook, NULL); // 04 keys+buttons | 02 only keyboard
-		mlx_hook(data->win_ptr, 17, 0, exit_hook, data);
-		mlx_loop(data->mlx_ptr);
+		actions(data);
 	}
 	return (0);
 }

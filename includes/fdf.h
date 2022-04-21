@@ -6,7 +6,7 @@
 /*   By: tpereira <tpereira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 16:21:52 by tpereira          #+#    #+#             */
-/*   Updated: 2022/04/18 16:51:22 by tpereira         ###   ########.fr       */
+/*   Updated: 2022/04/21 18:57:18 by tpereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,21 +28,26 @@ typedef struct
 
 typedef struct
 {
-	int		width;
-	int		height;
-	int		**z_matrix;
-	int		zoom;
-	int		color;
-	int		shift_x;
-	int		shift_y;
-	void	*mlx_ptr;
-	void	*win_ptr;
-	img		*img;
+	int				width;
+	int				height;
+	int				**z_matrix;
+	unsigned int	zoom;
+	double			angle;
+	int				color;
+	int				shift_x;
+	int				shift_y;
+	void			*mlx_ptr;
+	void			*win_ptr;
+	img				*img;
 }				fdf;
 
 void	read_file(char *filename, fdf *data);
 void	bresenham(float x, float y, float x1, float y1, fdf*data);
 void	draw(fdf*data);
 void	my_mlx_pixel_put(img *img, int x, int y, int color);
+void    actions(fdf*data);
+void    reset(fdf*data);
+void    init(fdf*data, img*image);
+void	print_menu(fdf*data);
 
 #endif
