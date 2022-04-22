@@ -6,7 +6,7 @@
 /*   By: tpereira <tpereira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 18:08:41 by tpereira          #+#    #+#             */
-/*   Updated: 2022/04/21 18:05:49 by tpereira         ###   ########.fr       */
+/*   Updated: 2022/04/22 16:54:55 by tpereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	bresenham(float x, float y, float x1, float y1, fdf*data)
 	x1 *= data->zoom;
 	y1 *= data->zoom;
 	// COLOR
-	data->color = (z || z1) > 0 ? 0xe80c0c : 0xffffff;	
+	data->color = (z || z1) > 0 ? 0xe80c0c : 0xffffff;
 	// ISOMETRIC (3D)
 	isometric(&x, &y, z, data);
 	isometric(&x1, &y1, z1, data);
@@ -80,17 +80,25 @@ void	draw(fdf*data)
 	int	y;
 
 	y = 0;
+	// data->width *= data->zoom - 10;
+	// data->height *= data->zoom - 10;
 	while (y < data->height)
 	{
 		x = 0;
 		while (x < data->width)
 		{
 			if (x < data->width - 1)
+			{
+				//my_mlx_pixel_put(data->mlx_ptr, x, y, 0x0000FF);
 				bresenham(x, y, x + 1, y, data);
+			}
 			if (y < data->height - 1)
+			{
+				//my_mlx_pixel_put(data->mlx_ptr, x, y, 0x0000FF);
 				bresenham(x, y, x, y + 1, data);
+			}
 			if (x >= data->width || y >= data->height)
-				break ;
+			 	break ;
 			x++;
 		}
 		y++;

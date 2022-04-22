@@ -6,7 +6,7 @@
 #    By: tpereira <tpereira@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/11 10:19:16 by tpereira          #+#    #+#              #
-#    Updated: 2022/04/11 19:33:16 by tpereira         ###   ########.fr        #
+#    Updated: 2022/04/22 17:06:40 by tpereira         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ CFLAGS 		= -Wall -Wextra -Werror -g
 INC			= -Iincludes -Ilibft
 LIB			= libft/libft.a
 SRCS		= ./srcs/*.c
-MAC			= -lm -lmlx -framework OpenGL -framework AppKit
+MAC			= -O3 -lm -lmlx -framework OpenGL -framework AppKit
 LINUX		= -lXext -lX11
 OS			= $(shell uname -s)
 
