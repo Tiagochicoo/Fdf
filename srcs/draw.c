@@ -6,7 +6,7 @@
 /*   By: tpereira <tpereira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 18:08:41 by tpereira          #+#    #+#             */
-/*   Updated: 2022/04/22 16:54:55 by tpereira         ###   ########.fr       */
+/*   Updated: 2022/04/26 17:16:03 by tpereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ float	mod(float i)
 	return (i < 0) ? -i : i;
 }
 
-void	isometric(float *x, float *y, int z, fdf*data)
+void	isometric(float *x, float *y, float z, fdf*data)
 {
 	*x = (*x - *y) * cos(data->angle);
 	*y = (*x + *y) * sin(data->angle) - z;
@@ -39,8 +39,8 @@ void	bresenham(float x, float y, float x1, float y1, fdf*data)
 	float	x_step;
 	float	y_step;
 	int		max;
-	int		z;
-	int		z1;
+	float	z;
+	float	z1;
 
 	z = data->z_matrix[(int)y][(int)x];
 	z1 = data->z_matrix[(int)y1][(int)x1];
@@ -80,23 +80,15 @@ void	draw(fdf*data)
 	int	y;
 
 	y = 0;
-	// data->width *= data->zoom - 10;
-	// data->height *= data->zoom - 10;
 	while (y < data->height)
 	{
 		x = 0;
 		while (x < data->width)
 		{
 			if (x < data->width - 1)
-			{
-				//my_mlx_pixel_put(data->mlx_ptr, x, y, 0x0000FF);
 				bresenham(x, y, x + 1, y, data);
-			}
 			if (y < data->height - 1)
-			{
-				//my_mlx_pixel_put(data->mlx_ptr, x, y, 0x0000FF);
 				bresenham(x, y, x, y + 1, data);
-			}
 			if (x >= data->width || y >= data->height)
 			 	break ;
 			x++;
