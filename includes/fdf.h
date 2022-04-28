@@ -14,7 +14,6 @@
 # define FDF_H
 
 #include "../libft/includes/libft.h"
-#include <mlx.h>
 #include <math.h>
 
 typedef struct
