@@ -14,18 +14,18 @@
 FDF 		= fdf
 CC 			= gcc
 CFLAGS 		= -Wall -Wextra -Werror -g
-INC			= -Iincludes -Ilibft
+INC			= -Iincludes -Ilibft -I/opt/X11/include
 LIB			= libft/libft.a
 SRCS		= ./srcs/*.c
-MAC			= -O3 -lm -lmlx -framework OpenGL -framework AppKit
+MAC			= -Lmlx -lmlx -framework OpenGL -framework Appkit
 LINUX		= -lXext -lX11
 OS			= $(shell uname -s)
 
 all :
 	@make -s -C libft
 ifeq ($(OS),Darwin)
-	@make -s -C minilibx_macos
-	@$(CC) $(CFLAGS) $(SRCS) $(LIB) $(MAC) -o $(FDF)
+	@make -s -C minilibx_opengl
+	@$(CC) $(CFLAGS) $(SRCS) $(LIB) minilibx_opengl/libmlx.a $(MAC) -o $(FDF)
 endif
 ifeq ($(OS),Linux)
 	@make -s -C minilibx_linux
@@ -41,7 +41,7 @@ cc: all
 
 clean :
 	@make -s clean -C libft
-	@make -s clean -C minilibx_linux
+	@make -s clean -C minilibx_opengl
 	@rm -rf ./srcs/*.o
 	@printf "\e[31;5;200m ╔════════════════════════════════════╗\e[0m\n"
 	@printf "\e[31;5;200m░▒▓█         Clean complete  	    █▓▒░\e[0m\n"
@@ -49,7 +49,7 @@ clean :
 
 fclean : clean
 	@make -s fclean -C libft
-	@make -s clean -C minilibx_linux
+	@make -s clean -C minilibx_opengl
 	@rm -rf $(FDF)
 
 re :	fclean all

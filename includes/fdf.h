@@ -13,6 +13,9 @@
 #ifndef FDF_H
 # define FDF_H
 
+#include <OpenGL/gl.h>
+#include "../minilibx_opengl/mlx.h"
+// #include "../minilibx_opengl/mlx_int.h"
 #include "../libft/includes/libft.h"
 #include <math.h>
 

@@ -1,66 +1,129 @@
-##
-## Makefile for MiniLibX in /home/boulon/work/c/raytraceur/minilibx
-## 
-## Made by Olivier Crouzet
-## Login   <ol@epitech.net>
-## 
-## Started on  Tue Oct  5 15:56:43 2004 Olivier Crouzet
-## Last update Tue May 15 15:41:20 2007 Olivier Crouzet
-##
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile.mk                                        :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: gicamerl <gicamerl@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2018/04/19 17:02:16 by gicamerl          #+#    #+#              #
+#    Updated: 2018/04/27 13:22:45 by gicamerl         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
-## Please use configure script
+# Non-file targets
+.PHONY: all norme clean fclean re
 
+# Empty variables 
+INCS		=	%%%%
+HT			=	%%%%
+DOCP		=	%%%%
 
-INC	=%%%%
+# Compiler and binaries
+CC			=	/usr/bin/gcc
+AR			=	/usr/bin/ar
+RANLIB		=	/usr/bin/ranlib
+RM			=	/bin/rm
+MKDIR		=	/bin/mkdir
 
-UNAME = $(shell uname)
-CC	= gcc
-ifeq ($(UNAME),FreeBSD)
-	CC = clang
-endif
+# Colors
+GREEN		=	\033[0;32m
+BLUE		=	\033[0;34m
+RED			=	\033[0;31m
+WHITE		=	\033[1;37m
 
-NAME		= libmlx.a
-NAME_UNAME	= libmlx_$(UNAME).a
+# Target Library
+NAME		= 	libmlx.a
 
-SRC	= mlx_init.c mlx_new_window.c mlx_pixel_put.c mlx_loop.c \
-	mlx_mouse_hook.c mlx_key_hook.c mlx_expose_hook.c mlx_loop_hook.c \
-	mlx_int_anti_resize_win.c mlx_int_do_nothing.c \
-	mlx_int_wait_first_expose.c mlx_int_get_visual.c \
-	mlx_flush_event.c mlx_string_put.c mlx_set_font.c \
-	mlx_new_image.c mlx_get_data_addr.c \
-	mlx_put_image_to_window.c mlx_get_color_value.c mlx_clear_window.c \
-	mlx_xpm.c mlx_int_str_to_wordtab.c mlx_destroy_window.c \
-	mlx_int_param_event.c mlx_int_set_win_event_mask.c mlx_hook.c \
-	mlx_rgb.c mlx_destroy_image.c mlx_mouse.c mlx_screen_size.c \
-	mlx_destroy_display.c
+# Directories
+SRCD		=	src/
+INCD		=	include/
+OBJD		= 	obj/
 
-OBJ_DIR = obj
-OBJ	= $(addprefix $(OBJ_DIR)/,$(SRC:%.c=%.o))
-CFLAGS	= -O3 -I$(INC)
+#Source and Objects
+SRC			= mlx_init.c \
+	  mlx_new_window.c \
+	  mlx_pixel_put.c \
+	  mlx_loop.c \
+	  mlx_mouse_hook.c \
+	  mlx_key_hook.c \
+	  mlx_expose_hook.c \
+	  mlx_loop_hook.c \
+	  mlx_int_anti_resize_win.c \
+	  mlx_int_wait_first_expose.c \
+	  mlx_int_get_visual.c \
+	  mlx_flush_event.c \
+	  mlx_string_put.c \
+	  mlx_get_data_addr.c \
+	  mlx_put_image_to_window.c \
+	  mlx_get_color_value.c \
+	  mlx_clear_window.c \
+	  mlx_int_str_to_wordtab.c \
+	  mlx_destroy_window.c \
+	  mlx_hook.c \
+	  mlx_rgb.c \
+	  mlx_destroy_image.c \
+	  mlx_new_image.c \
+	  mlx_xpm.c \
+	  mlx_int_param_event.c \
+	  mlx_int_set_win_event_mask.c \
+	  mlx_int_do_nothing.c \
 
-all	: $(NAME)
+SRCS		=	$(addprefix $(SRCD), $(SRC))
+OBJ			=	$(addprefix $(OBJD), $(SRC:.c=.o))
 
-$(OBJ_DIR)/%.o: %.c
-	@mkdir -p $(OBJ_DIR)
-	$(CC) $(CFLAGS) $(IFLAGS) -c $< -o $@
+# Flags and Header
+CFLAGS		=	-O2 -I$(INCS)
 
-$(NAME)	: $(OBJ)
-	ar -r $(NAME) $(OBJ)
-	ranlib $(NAME)
-	cp $(NAME) $(NAME_UNAME)
+HEADER		=	$(INCD)mlx.h \
+				$(INCD)mlx_int.h
 
-check: all
-	@test/run_tests.sh
+# Default make
+all: $(OBJD) $(NAME) $(DOCP)
 
-show:
-	@printf "NAME  		: $(NAME)\n"
-	@printf "NAME_UNAME	: $(NAME_UNAME)\n"
-	@printf "CC		: $(CC)\n"
-	@printf "CFLAGS		: $(CFLAGS)\n"
-	@printf "SRC		:\n	$(SRC)\n"
-	@printf "OBJ		:\n	$(OBJ)\n"
+$(NAME): $(SRCS) $(OBJ) $(HEADER) Makefile
+	@$(AR) rc $(NAME) $(OBJ)
+	@$(RANLIB) $(NAME)
+	@printf "$(GREEN) [LIB]$(WHITE) Building $(NAME)\n"
 
-clean	:
-	rm -rf $(OBJ_DIR)/ $(NAME) $(NAME_UNAME) *~ core *.core
+# Create minilibx obj dir
+$(OBJD):
+	@$(MKDIR) -p $(OBJD)
+	@$(MKDIR) -p $(dir $(OBJ))
+	@printf "$(GREEN) [OBJ]$(WHITE) Creating minilibx obj dir\n"
 
-.PHONY: all check show clean
+# Create objects
+$(OBJD)%.o: $(SRCD)%.c
+	@$(CC) $(CFLAGS) -I$(INCD) -c $< -o $@
+	@printf "$(GREEN) [OBJ]$(WHITE) Building $@\n"
+
+# Make a copy of the lib
+do_cp:
+	@cp $(NAME) libmlx_$(HT).a
+	@printf "$(GREEN) [LIB]$(WHITE) Create libmlx_$(HT).a\n"
+
+# Norminette
+norme:
+	norminette $(INCD)
+
+# Clean objects
+clean:
+	@if [ -e $(OBJD) ]; \
+	then \
+		$(RM) -rf $(OBJD); \
+		printf "$(BLUE) [OBJ]$(WHITE) Clean minilibx objects\n"; \
+	else \
+		printf "$(BLUE) [OBJ]$(WHITE) No minilibx objects\n"; \
+	fi;
+
+# Clean in depth
+fclean: clean
+	@if [ -e $(NAME) ] || [ -e libmlx_$(HT).a ]; \
+	then \
+		$(RM) -f $(NAME) libmlx_$(HT).a; \
+		printf "$(RED) [LIB]$(WHITE) Clean build files\n"; \
+	else \
+		printf "$(RED) [LIB]$(WHITE) No build files\n"; \
+	fi;
+
+# Remake
+re: fclean all
