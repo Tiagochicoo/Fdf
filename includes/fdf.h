@@ -26,18 +26,25 @@ typedef struct
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
+	int		width;
+	int		height;
+	int		x;
+	int		y;
+	int		z;
 }				img;
 
 typedef struct
 {
-	int				width;
-	int				height;
-	int				**z_matrix;
-	unsigned int	zoom;
-	double			angle;
 	int				color;
+	unsigned int	zoom;
+	int				z_height;
 	int				shift_x;
 	int				shift_y;
+	int				is_3d;
+	double			angle;
+	int				win_x;
+	int				win_y;
+	int				**z_matrix;
 	void			*mlx_ptr;
 	void			*win_ptr;
 	img				*img;
@@ -45,6 +52,7 @@ typedef struct
 
 void	read_file(char *filename, fdf *data);
 void	bresenham(float x, float y, float x1, float y1, fdf*data);
+void	isometric(float *x, float *y, float z, fdf*data);
 void	draw(fdf*data);
 void	my_mlx_pixel_put(img *img, int x, int y, int color);
 void    actions(fdf*data);

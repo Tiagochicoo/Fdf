@@ -28,13 +28,13 @@ float	mod(float i)
 	return (i < 0) ? -i : i;
 }
 
-void	isometric(float *x, float *y, float z, fdf*data)
+void	isometric(float *x, float *y, float z, fdf*map)
 {
-	*x = (*x - *y) * cos(data->angle);
-	*y = (*x + *y) * sin(data->angle) - z;
+	*x = (*x - *y) * cos(map->angle);
+	*y = (*x + *y) * sin(map->angle) - z;
 }
 
-void	bresenham(float x, float y, float x1, float y1, fdf*data)
+void	bresenham(float x, float y, float x1, float y1, fdf*map)
 {
 	float	x_step;
 	float	y_step;
@@ -42,23 +42,23 @@ void	bresenham(float x, float y, float x1, float y1, fdf*data)
 	float	z;
 	float	z1;
 
-	z = data->z_matrix[(int)y][(int)x];
-	z1 = data->z_matrix[(int)y1][(int)x1];
+	z = map->z_matrix[(int)y][(int)x];
+	z1 = map->z_matrix[(int)y1][(int)x1];
 	// ZOOM
-	x *= data->zoom;
-	y *= data->zoom;
-	x1 *= data->zoom;
-	y1 *= data->zoom;
+	x *= map->zoom;
+	y *= map->zoom;
+	x1 *= map->zoom;
+	y1 *= map->zoom;
 	// COLOR
-	data->color = (z || z1) > 0 ? 0xe80c0c : 0xffffff;
+	map->color = (z || z1) > 0 ? 0xe80c0c : 0xffffff;
 	// ISOMETRIC (3D)
-	isometric(&x, &y, z, data);
-	isometric(&x1, &y1, z1, data);
+	isometric(&x, &y, z, map);
+	isometric(&x1, &y1, z1, map);
 	// SHIFT
-	x += data->shift_x;
-	y += data->shift_y;
-	x1 += data->shift_x;
-	y1 += data->shift_y;
+	x += map->shift_x;
+	y += map->shift_y;
+	x1 += map->shift_x;
+	y1 += map->shift_y;
 
 	x_step = x1 - x;
 	y_step = y1 - y;
@@ -67,29 +67,29 @@ void	bresenham(float x, float y, float x1, float y1, fdf*data)
 	y_step /= max;
 	while ((int)(x - x1) || (int)(y - y1))
 	{
-		my_mlx_pixel_put(data->img, x, y, data->color);
+		my_mlx_pixel_put(map->img, x, y, map->color);
 		x += x_step;
 		y += y_step;
 	}
-	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img, 100, 100);
+	mlx_put_image_to_window(map->mlx_ptr, map->win_ptr, map->img, 150, 150);
 }
 
-void	draw(fdf*data)
+void	draw(fdf*map)
 {
 	int	x;
 	int	y;
 
 	y = 0;
-	while (y < data->height)
+	while (y < map->win_y)
 	{
 		x = 0;
-		while (x < data->width)
+		while (x < map->win_x)
 		{
-			if (x < data->width - 1)
-				bresenham(x, y, x + 1, y, data);
-			if (y < data->height - 1)
-				bresenham(x, y, x, y + 1, data);
-			if (x >= data->width || y >= data->height)
+			if (x < map->win_x - 1)
+				bresenham(x, y, x + 1, y, map);
+			if (y < map->win_y - 1)
+				bresenham(x, y, x, y + 1, map);
+			if (x >= map->win_x || y >= map->win_y)
 			 	break ;
 			x++;
 		}

@@ -59,27 +59,27 @@ void	fill_matrix(int *z_line, char *line)
 	//free(nums);              ?????????????????? WHY ??????????????????
 }
 
-void	read_file(char *filename, fdf *data)
+void	read_file(char *filename, fdf *map)
 {
 	int i;
 	int	fd;
 	char *line;
 
 	i = 0;
-	data->height = get_height(filename);
-	data->width = get_width(filename);
+	map->win_y = get_height(filename);
+	map->win_x = get_width(filename);
 
-	data->z_matrix = (int **)malloc(sizeof(int*) * (data->height + 1));
-	while (i <= data->height)
-		data->z_matrix[i++] = (int *)malloc(sizeof(int) * (data->width + 1));
+	map->z_matrix = (int **)malloc(sizeof(int*) * (map->win_y + 1));
+	while (i <= map->win_y)
+		map->z_matrix[i++] = (int *)malloc(sizeof(int) * (map->win_x + 1));
 	fd = open(filename, O_RDONLY, 0);
 	i = 0;
 	while (get_next_line(fd, &line))
 	{
-		fill_matrix(data->z_matrix[i], line);
+		fill_matrix(map->z_matrix[i], line);
 		free(line);
 		i++;
 	}
 	close(fd);
-	data->z_matrix[i] = NULL;
+	map->z_matrix[i] = NULL;
 }
