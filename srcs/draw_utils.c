@@ -42,7 +42,7 @@ void    init(fdf*map, img*image)
     map->mlx_ptr = mlx_init();
     map->win_ptr = mlx_new_window(map->mlx_ptr, map->win_x, map->win_y, "FDF");
     image = mlx_new_image(map->mlx_ptr, map->win_x, map->win_y);
-    image->addr = mlx_get_map_addr(image, &image->bits_per_pixel, &image->line_length, &image->endian);
+    image->addr = mlx_get_data_addr(image, &image->bits_per_pixel, &image->line_length, &image->endian);
     map->img = image;
 }
 
@@ -51,7 +51,7 @@ void    reset(fdf*map)
     //mlx_clear_window(map->mlx_ptr, map->win_ptr);
     mlx_destroy_image(map->mlx_ptr, map->img);
 	map->img = mlx_new_image(map->mlx_ptr, 1000, 500);
-	map->img->addr = mlx_get_map_addr(map->img, &map->img->bits_per_pixel, &map->img->line_length, &map->img->endian);
+	map->img->addr = mlx_get_data_addr(map->img, &map->img->bits_per_pixel, &map->img->line_length, &map->img->endian);
 	//blackout(map);
     draw(map);
 	print_menu(map);
