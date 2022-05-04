@@ -6,7 +6,7 @@
 /*   By: tpereira <tpereira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 08:59:57 by tpereira          #+#    #+#             */
-/*   Updated: 2022/04/11 19:32:36 by tpereira         ###   ########.fr       */
+/*   Updated: 2022/05/04 18:13:21 by tpereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,20 @@
 static long long	word_count(char *str, char charset)
 {
 	long long	count;
+	int			i;
 
+	i = 0;
 	count = 0;
-	while (*str)
+	while (str[i])
 	{
-		if (*str != charset)
+		if (str[i] != charset)
 		{
 			++count;
-			while (*str && *str != charset)
-				++str;
+			while (str[i] && str[i] != charset)
+				++i;
 		}
-		if (*str != 0)
-			str++;
+		if (str[i] != NULL)
+			i++;
 	}
 	return (count);
 }

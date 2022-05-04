@@ -6,7 +6,7 @@
 #    By: tpereira <tpereira@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/11 10:19:16 by tpereira          #+#    #+#              #
-#    Updated: 2022/04/22 17:06:40 by tpereira         ###   ########.fr        #
+#    Updated: 2022/05/04 18:01:28 by tpereira         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,8 +24,8 @@ OS			= $(shell uname -s)
 all :
 	@make -s -C libft
 ifeq ($(OS),Darwin)
-	@make -s -C minilibx_opengl
-	@$(CC) $(CFLAGS) $(SRCS) $(LIB) minilibx_opengl/libmlx.a $(MAC) -o $(FDF)
+	@make -s -C minilibx_macos
+	@$(CC) $(CFLAGS) $(SRCS) $(LIB) -fsanitize=address minilibx_macos/libmlx.a $(MAC) -o $(FDF)
 endif
 ifeq ($(OS),Linux)
 	@make -s -C minilibx_linux
@@ -41,7 +41,7 @@ cc: all
 
 clean :
 	@make -s clean -C libft
-	@make -s clean -C minilibx_opengl
+	@make -s clean -C minilibx_macos
 	@rm -rf ./srcs/*.o
 	@printf "\e[31;5;200m ╔════════════════════════════════════╗\e[0m\n"
 	@printf "\e[31;5;200m░▒▓█         Clean complete  	    █▓▒░\e[0m\n"
@@ -49,7 +49,7 @@ clean :
 
 fclean : clean
 	@make -s fclean -C libft
-	@make -s clean -C minilibx_opengl
+	@make -s clean -C minilibx_macos
 	@rm -rf $(FDF)
 
 re :	fclean all

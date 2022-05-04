@@ -6,7 +6,7 @@
 /*   By: tpereira <tpereira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 18:52:18 by tpereira          #+#    #+#             */
-/*   Updated: 2022/04/26 17:26:05 by tpereira         ###   ########.fr       */
+/*   Updated: 2022/05/02 19:28:55 by tpereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,9 @@ void    init(fdf*map, img*image)
     map->zoom = 20;
     map->z_height = 1;
     map->angle = 0.8;
-    map->win_x = 2000;
-    map->win_y = 1000;
-    map->shift_x = map->win_x / 3;
-    map->shift_y = map->win_y / 3;
     map->mlx_ptr = mlx_init();
-    map->win_ptr = mlx_new_window(map->mlx_ptr, map->win_x, map->win_y, "FDF");
-    image = mlx_new_image(map->mlx_ptr, map->win_x, map->win_y);
+    map->win_ptr = mlx_new_window(map->mlx_ptr, 2000, 1000, "FDF");
+    image = mlx_new_image(map->mlx_ptr, 2000, 1000);
     image->addr = mlx_get_data_addr(image, &image->bits_per_pixel, &image->line_length, &image->endian);
     map->img = image;
 }
