@@ -6,7 +6,7 @@
 /*   By: tpereira <tpereira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 17:27:30 by tpereira          #+#    #+#             */
-/*   Updated: 2022/04/26 17:26:32 by tpereira         ###   ########.fr       */
+/*   Updated: 2022/05/05 18:39:00 by tpereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,38 +103,36 @@
 #include "../includes/fdf.h"
 #include <mlx.h>
 
-void	print_menu(fdf*map)
+void	print_menu(fdf*data)
 {
 	char *menu;
 
 	menu = "How to use:";
-	mlx_string_put(map->mlx_ptr, map->win_ptr, 55, 20, 0xffffff, menu);
+	mlx_string_put(data->mlx_ptr, data->win_ptr, 15, 10, 0xffffff, menu);
 	menu = "up, down, left, right: move picture";
-	mlx_string_put(map->mlx_ptr, map->win_ptr, 55, 40, 0xffffff, menu);
+	mlx_string_put(data->mlx_ptr, data->win_ptr, 15, 30, 0xffffff, menu);
 	menu = "+, -: zoom";
-	mlx_string_put(map->mlx_ptr, map->win_ptr, 55, 60, 0xffffff, menu);
+	mlx_string_put(data->mlx_ptr, data->win_ptr, 15, 50, 0xffffff, menu);
 	menu = "*, / : perspective";
-	mlx_string_put(map->mlx_ptr, map->win_ptr, 55, 80, 0xffffff, menu);
+	mlx_string_put(data->mlx_ptr, data->win_ptr, 15, 70, 0xffffff, menu);
 	menu = "f: full screen mode";
-	mlx_string_put(map->mlx_ptr, map->win_ptr, 55, 100, 0xffffff, menu);
+	mlx_string_put(data->mlx_ptr, data->win_ptr, 15, 90, 0xffffff, menu);
 }
 
 int	main(int argc, char **argv)
 {
-	fdf *map;
+	fdf *data;
 	img *image;
 
-	if (argc != 2)
+	if (argc > 1)
 	{
-		ft_printf("Usage: ./fdf map.fdf\n");
-		exit(1);
+		data = (fdf*)malloc(sizeof(fdf));	
+		image = (img *)malloc(sizeof(img));
+		read_file(ft_strdup(argv[1]), data);
+		init(data, image);
+		draw(data);
+		print_menu(data);
+		actions(data);
 	}
-	map = (fdf*)malloc(sizeof(fdf));
-	image = (img *)malloc(sizeof(img));
-	read_file(ft_strdup(argv[1]), map);
-	init(map, image);
-	draw(map);
-	print_menu(map);
-	actions(map);
 	return (0);
 }

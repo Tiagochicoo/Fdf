@@ -6,7 +6,7 @@
 /*   By: tpereira <tpereira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 16:25:21 by tpereira          #+#    #+#             */
-/*   Updated: 2022/05/04 18:02:57 by tpereira         ###   ########.fr       */
+/*   Updated: 2022/05/05 20:13:39 by tpereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,33 +53,33 @@ void	fill_matrix(int *z_line, char *line)
 	while(nums[i])
 	{
 		z_line[i] = ft_atoi(nums[i]);
-		//free(nums[i]);
+		free(nums[i]);
 		i++;
 	}
-	//free(nums);              ?????????????????? WHY ??????????????????
+	//free(nums);            //  ?????????????????? WHY ??????????????????
 }
 
-void	read_file(char *filename, fdf *map)
+void	read_file(char *filename, fdf *data)
 {
 	int i;
 	int	fd;
 	char *line;
 
 	i = 0;
-	map->win_y = get_height(filename);
-	map->win_x = get_width(filename);
+	data->height = get_height(filename);
+	data->width = get_width(filename);
 
-	map->z_matrix = (int **)malloc(sizeof(int*) * (map->win_y + 1));
-	while (i <= map->win_y)
-		map->z_matrix[i++] = (int *)malloc(sizeof(int) * (map->win_x + 1));
+	data->z_matrix = (int **)malloc(sizeof(int*) * (data->height + 1));
+	while (i <= data->height)
+		data->z_matrix[i++] = (int *)malloc(sizeof(int) * (data->width + 1));
 	fd = open(filename, O_RDONLY, 0);
 	i = 0;
 	while (get_next_line(fd, &line))
 	{
-		fill_matrix(map->z_matrix[i], line);
+		fill_matrix(data->z_matrix[i], line);
 		free(line);
 		i++;
 	}
 	close(fd);
-	map->z_matrix[i] = NULL;
+	data->z_matrix[i] = NULL;
 }

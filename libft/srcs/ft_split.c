@@ -6,7 +6,7 @@
 /*   By: tpereira <tpereira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 08:59:57 by tpereira          #+#    #+#             */
-/*   Updated: 2022/05/04 18:13:21 by tpereira         ###   ########.fr       */
+/*   Updated: 2022/05/05 20:22:13 by tpereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,18 @@
 static long long	word_count(char *str, char charset)
 {
 	long long	count;
-	int			i;
 
-	i = 0;
 	count = 0;
-	while (str[i])
+	while (*str)
 	{
-		if (str[i] != charset)
+		if (*str != charset)
 		{
 			++count;
-			while (str[i] && str[i] != charset)
-				++i;
+			while (*str && *str != charset)
+				++str;
 		}
-		if (str[i] != NULL)
-			i++;
+		if (*str != 0)
+			str++;
 	}
 	return (count);
 }
@@ -59,11 +57,11 @@ char	**ft_split(char const *str, char charset)
 			while (*str && *str != charset)
 				++str;
 			str_arr[i] = (char *)malloc(str - from + 1);
-			ftl_strcpy(str_arr[i++], from, (char *)str);
+			ftl_strcpy(str_arr[i], from, (char *)str);
 		}
-		if (*str != 0)
+		if (*str != '\0')
 			++str;
 	}
-	str_arr[i] = 0;
+	//str_arr[i] = 0;
 	return (str_arr);
 }
