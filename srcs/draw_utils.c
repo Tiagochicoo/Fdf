@@ -6,7 +6,7 @@
 /*   By: tpereira <tpereira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 18:52:18 by tpereira          #+#    #+#             */
-/*   Updated: 2022/04/21 19:16:04 by tpereira         ###   ########.fr       */
+/*   Updated: 2022/05/05 18:02:16 by tpereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,10 @@ void    init(fdf*data, img*image)
 
 void    reset(fdf*data)
 {
-    mlx_destroy_image(data->mlx_ptr, data->img);
-	data->img = mlx_new_image(data->mlx_ptr, 1000, 1000);
-	data->img->addr = mlx_get_data_addr(data->img, &data->img->bits_per_pixel, &data->img->line_length, &data->img->endian);
+    mlx_clear_window(data->mlx_ptr, data->win_ptr);
+    //mlx_destroy_image(data->mlx_ptr, data->img);
+	//data->img = mlx_new_image(data->mlx_ptr, 1000, 1000);
+	//data->img->addr = mlx_get_data_addr(data->img, &data->img->bits_per_pixel, &data->img->line_length, &data->img->endian);
 	draw(data);
 	print_menu(data);
 }

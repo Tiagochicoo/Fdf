@@ -6,7 +6,7 @@
 /*   By: tpereira <tpereira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 18:38:18 by tpereira          #+#    #+#             */
-/*   Updated: 2022/04/21 19:07:00 by tpereira         ###   ########.fr       */
+/*   Updated: 2022/05/05 18:01:32 by tpereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,19 @@ int    zoom(int keycode, fdf*data)
     return (0);
 }
 
+int	rotate(int keycode, fdf*data)
+{
+	if (keycode == 88)
+		data->angle += 0.05;
+	else if (keycode == 86)
+		data->angle -= 0.05;
+	return (0);
+}
+
 int    move(int keycode, fdf*data)
 {
     zoom(keycode, data);
+	rotate(keycode, data);
     if (keycode == 65362 || keycode == 126)
 		data->shift_y -= 10;
 	else if (keycode == 65361 || keycode == 125)
