@@ -6,7 +6,11 @@
 /*   By: tpereira <tpereira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 18:38:18 by tpereira          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/04/22 16:54:57 by tpereira         ###   ########.fr       */
+=======
+/*   Updated: 2022/05/05 18:01:32 by tpereira         ###   ########.fr       */
+>>>>>>> new
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +40,21 @@ int    zoom(int keycode, fdf*map)
 		return (0);
 }
 
-int    move(int keycode, fdf*map)
+int	rotate(int keycode, fdf*data)
 {
-	zoom(keycode, map);
-	if (keycode == 65362 || keycode == 126)
-		map->shift_y -= 10;
+	if (keycode == 88)
+		data->angle += 0.05;
+	else if (keycode == 86)
+		data->angle -= 0.05;
+	return (0);
+}
+
+int    move(int keycode, fdf*data)
+{
+    zoom(keycode, data);
+	rotate(keycode, data);
+    if (keycode == 65362 || keycode == 126)
+		data->shift_y -= 10;
 	else if (keycode == 65361 || keycode == 125)
 		map->shift_y += 10;
 	else if (keycode == 65364 || keycode == 123)

@@ -6,7 +6,11 @@
 /*   By: tpereira <tpereira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 18:52:18 by tpereira          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/05/02 19:28:55 by tpereira         ###   ########.fr       */
+=======
+/*   Updated: 2022/05/05 18:02:16 by tpereira         ###   ########.fr       */
+>>>>>>> new
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +48,10 @@ void    init(fdf*map, img*image)
 
 void    reset(fdf*map)
 {
-    //mlx_clear_window(map->mlx_ptr, map->win_ptr);
-    mlx_destroy_image(map->mlx_ptr, map->img);
-	map->img = mlx_new_image(map->mlx_ptr, 1000, 500);
-	map->img->addr = mlx_get_data_addr(map->img, &map->img->bits_per_pixel, &map->img->line_length, &map->img->endian);
-	//blackout(map);
-    draw(map);
-	print_menu(map);
+    mlx_clear_window(data->mlx_ptr, data->win_ptr);
+    //mlx_destroy_image(data->mlx_ptr, data->img);
+	//data->img = mlx_new_image(data->mlx_ptr, 1000, 1000);
+	//data->img->addr = mlx_get_data_addr(data->img, &data->img->bits_per_pixel, &data->img->line_length, &data->img->endian);
+	draw(data);
+	print_menu(data);
 }
