@@ -101,7 +101,7 @@
 */
 
 #include "../includes/fdf.h"
-#include <mlx.h>
+//#include <mlx.h>
 
 void	print_menu(fdf*data)
 {

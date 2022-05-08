@@ -17,7 +17,7 @@ CFLAGS 		= -Wall -Wextra -Werror -g
 INC			= -Iincludes -Ilibft -I/opt/X11/include
 LIB			= libft/libft.a
 SRCS		= ./srcs/*.c
-MAC			= -Lmlx -lmlx -framework OpenGL -framework Appkit
+MAC			= -framework OpenGL -framework Appkit
 LINUX		= -lXext -lX11
 OS			= $(shell uname -s)
 
