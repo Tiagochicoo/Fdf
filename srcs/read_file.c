@@ -49,7 +49,7 @@ void	fill_matrix(int *z_line, char *line)
 	char	**nums;
 
 	i = 0;
-	nums = ft_split(ft_strdup(line), ' ');
+	nums = ft_split(ft_strdup(line), " ");
 	while(nums[i])
 	{
 		z_line[i] = ft_atoi(nums[i]);
