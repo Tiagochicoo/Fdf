@@ -26,20 +26,20 @@ int    leave(void)
 
 int    zoom(int keycode, fdf*data)
 {
-		if (keycode == 69)
+	if (keycode == 69)
 		data->zoom += 5;
 	else if (keycode == 78)
 		data->zoom -= 5;
-		if (keycode == 36)
+	if (keycode == 36)
 		data->zoom = 20;
-		reset(data);
+	reset(data);
 		return (0);
 }
 
 int    move(int keycode, fdf*data)
 {
-		zoom(keycode, data);
-		if (keycode == 65362 || keycode == 126)
+	zoom(keycode, data);
+	if (keycode == 65362 || keycode == 126)
 		data->shift_y -= 10;
 	else if (keycode == 65361 || keycode == 125)
 		data->shift_y += 10;
@@ -47,7 +47,7 @@ int    move(int keycode, fdf*data)
 		data->shift_x -= 10;
 	else if (keycode == 65363 || keycode == 124)
 		data->shift_x += 10;
-		reset(data);
+	reset(data);
 		return (0);
 }
 
