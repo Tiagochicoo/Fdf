@@ -40,9 +40,9 @@ void	str_alloc(char *str, char *charset, int len, char **str_arr)
 			i++;
 			j++;
 		}
-		buffer[j] = '\0';
 		if (j > 0)
 		{
+			buffer[j] = '\0';
 			to_allocate = sizeof(char) * (ft_strlen(buffer) + 1);
 			str_arr[ii] = malloc(to_allocate);
 			ft_strlcpy(str_arr[ii], buffer, ft_strlen(buffer) + 1);
