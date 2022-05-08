@@ -22,7 +22,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/fdf",
-            "args": ["42.fdf"],
+            "args": ["${workspaceFolder}/42.fdf"],
             "stopAtEntry": true,
             "cwd": "${fileDirname}",
             "environment": [],
