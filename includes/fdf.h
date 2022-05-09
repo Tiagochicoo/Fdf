@@ -35,9 +35,11 @@ typedef struct
 	int				**z_matrix;
 	unsigned int	zoom;
 	double			angle;
+	int				iso;
+	int				elevation;
 	int				color;
-	int				shift_x;
-	int				shift_y;
+	int				pos_x;
+	int				pos_y;
 	void			*mlx_ptr;
 	void			*win_ptr;
 	img				*img;

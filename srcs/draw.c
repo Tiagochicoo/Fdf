@@ -42,8 +42,9 @@ void	bresenham(float x, float y, float x1, float y1, fdf*data)
 	float	z;
 	float	z1;
 
-	z = data->z_matrix[(int)y][(int)x];
-	z1 = data->z_matrix[(int)y1][(int)x1];
+	//ELEVATION
+	z = (data->z_matrix[(int)y][(int)x]) * data->elevation;
+	z1 = data->z_matrix[(int)y1][(int)x1] * data->elevation;
 	// ZOOM
 	x *= data->zoom;
 	y *= data->zoom;
@@ -52,13 +53,16 @@ void	bresenham(float x, float y, float x1, float y1, fdf*data)
 	// COLOR
 	data->color = (z || z1) > 0 ? 0xe80c0c : 0xffffff;
 	// ISOMETRIC (3D)
-	isometric(&x, &y, z, data);
-	isometric(&x1, &y1, z1, data);
+	if (data->iso)
+	{
+		isometric(&x, &y, z, data);
+		isometric(&x1, &y1, z1, data);
+	}
 	// SHIFT
-	x += data->shift_x;
-	y += data->shift_y;
-	x1 += data->shift_x;
-	y1 += data->shift_y;
+	x += data->pos_x;
+	y += data->pos_y;
+	x1 += data->pos_x;
+	y1 += data->pos_y;
 
 	x_step = x1 - x;
 	y_step = y1 - y;

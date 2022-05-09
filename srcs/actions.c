@@ -26,14 +26,22 @@ int    leave(void)
 
 int    zoom(int keycode, fdf*data)
 {
+	if (data->zoom > 0)
+	{
+		if (keycode == 78)
+			data->zoom -= 5;
+	}
 	if (keycode == 69)
 		data->zoom += 5;
-	else if (keycode == 78)
-		data->zoom -= 5;
-	if (keycode == 36)
-		data->zoom = 20;
+	if (keycode == 87)
+	{
+		if (data->iso)
+			data->iso = 0;
+		else
+			data->iso = 1;
+	}
 	reset(data);
-		return (0);
+	return (0);
 }
 
 int	rotate(int keycode, fdf*data)
@@ -45,18 +53,47 @@ int	rotate(int keycode, fdf*data)
 	return (0);
 }
 
+int	elevation(int keycode, fdf*data)
+{
+	if (keycode == 84)
+		data->elevation -= 1;
+	else if (keycode == 91)
+		data->elevation += 1;
+	return (0);
+}
+
+int	revert(int keycode, fdf*data)
+{
+	int	width;
+	int	height;
+
+	if (keycode == 51)
+		{
+			width = (data->width / data->height) * 1000;
+			height = (data->width / data->height) * 1000;
+			data->zoom = (width / height) * 20;
+			data->angle = 0.8165;
+			data->pos_x = width / 2;
+			data->pos_y = height / 2;
+			data->elevation = 1;
+		}
+	return (0);
+}
+
 int    move(int keycode, fdf*data)
 {
     zoom(keycode, data);
 	rotate(keycode, data);
+	elevation(keycode, data);
+	revert(keycode, data);
     if (keycode == 65362 || keycode == 126)
-		data->shift_y -= 10;
+		data->pos_y -= 10;
 	else if (keycode == 65361 || keycode == 125)
-		data->shift_y += 10;
+		data->pos_y += 10;
 	else if (keycode == 65364 || keycode == 123)
-		data->shift_x -= 10;
+		data->pos_x -= 10;
 	else if (keycode == 65363 || keycode == 124)
-		data->shift_x += 10;
+		data->pos_x += 10;
 	reset(data);
 		return (0);
 }
