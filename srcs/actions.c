@@ -28,10 +28,10 @@ int    zoom(int keycode, fdf*data)
 {
 	if (data->zoom > 0)
 	{
-		if (keycode == 78)
+		if (keycode == 78 || keycode == 27)
 			data->zoom -= 5;
 	}
-	if (keycode == 69)
+	if (keycode == 69 || keycode == 24)
 		data->zoom += 5;
 	if (keycode == 87)
 	{
@@ -82,6 +82,7 @@ int	revert(int keycode, fdf*data)
 
 int    move(int keycode, fdf*data)
 {
+	printf("keycode -> %d\n", keycode);
     zoom(keycode, data);
 	rotate(keycode, data);
 	elevation(keycode, data);
