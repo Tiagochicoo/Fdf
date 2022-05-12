@@ -68,15 +68,15 @@ int	revert(int keycode, fdf*data)
 	int	height;
 
 	if (keycode == 51)
-		{
-			width = (data->width / data->height) * 1000;
-			height = (data->width / data->height) * 1000;
-			data->zoom = (width / height) * 20;
-			data->angle = 0.8165;
-			data->pos_x = width / 2;
-			data->pos_y = height / 2;
-			data->elevation = 1;
-		}
+	{
+		width = (data->width / data->height) * 1000;
+		height = (data->width / data->height) * 1000;
+		data->zoom = (width / height) * 20;
+		data->angle = 0.8165;
+		data->pos_x = width / 2;
+		data->pos_y = height / 2;
+		data->elevation = 1;
+	}
 	return (0);
 }
 

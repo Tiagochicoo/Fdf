@@ -52,6 +52,7 @@ void	my_mlx_pixel_put(img *img, int x, int y, int color);
 void    actions(fdf*data);
 void    reset(fdf*data);
 void    init(fdf*data, img*image);
+void	start(fdf*data);
 void	print_menu(fdf*data);
 
 #endif
