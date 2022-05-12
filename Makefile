@@ -33,7 +33,7 @@ ifeq ($(OS),Linux)
 endif
 	@printf "\e[38;5;46m ╔════════════════════════════════════╗\e[0m\n"
 	@printf "\e[38;5;46m█▓▒░	     Compiled Libft	    ░▒▓█ \e[0m\n"
-	@printf "\e[38;5;46m█▓▒░   MinilibX build successfull   ░▒▓█ \e[0m\n"
+	@printf "\e[38;5;46m█▓▒░   MinilibX build successful    ░▒▓█ \e[0m\n"
 	@printf "\e[38;5;46m ╚════════════════════════════════════╝\e[0m\n"
 
 cc: all

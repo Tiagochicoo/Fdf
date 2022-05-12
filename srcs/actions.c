@@ -33,7 +33,7 @@ int    zoom(int keycode, fdf*data)
 	}
 	if (keycode == 69 || keycode == 24)
 		data->zoom += 5;
-	if (keycode == 87)
+	if (keycode == 87 || keycode == 18)
 	{
 		if (data->iso)
 			data->iso = 0;
@@ -55,9 +55,9 @@ int	rotate(int keycode, fdf*data)
 
 int	elevation(int keycode, fdf*data)
 {
-	if (keycode == 84)
+	if (keycode == 84 || keycode == 5)
 		data->elevation -= 1;
-	else if (keycode == 91)
+	else if (keycode == 91 || keycode == 17)
 		data->elevation += 1;
 	return (0);
 }

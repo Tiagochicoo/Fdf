@@ -20,6 +20,11 @@ int	get_height(char *filename)
 
 	height = 0;
 	fd = open(filename, O_RDONLY, 0);
+	if (fd < 0)
+	{
+		ft_printf("Error: failed to open\n");
+		exit(1);
+	}
 	while(get_next_line(fd, &line))
 	{
 		height++;
@@ -36,6 +41,11 @@ int	get_width(char *filename)
 	char *line;
 
 	fd = open(filename, O_RDONLY, 0);
+	if (fd < 0)
+	{
+		ft_printf("Error: failed to open\n");
+		exit(1);
+	}
 	get_next_line(fd, &line);
 	width = (int)ft_word_count(line, ' ');
 	free(line);
@@ -43,14 +53,14 @@ int	get_width(char *filename)
 	return (width);
 }
 
-void	fill_matrix(int *z_line, char *line)
+void	fill_matrix(int *z_line, char *line, int width)
 {
 	int		i;
 	char	**nums;
 
 	i = 0;
 	nums = ft_split(ft_strdup(line), " ");
-	while(nums[i])
+	while(nums[i] && i < width)
 	{
 		z_line[i] = ft_atoi(nums[i]);
 		//free(nums[i]);
@@ -73,10 +83,15 @@ void	read_file(char *filename, fdf *data)
 	while (i <= data->height)
 		data->z_matrix[i++] = (int *)malloc(sizeof(int) * (data->width + 1));
 	fd = open(filename, O_RDONLY, 0);
+	if (fd < 0)
+	{
+		ft_printf("Error: failed to open\n");
+		exit(1);
+	}
 	i = 0;
 	while (get_next_line(fd, &line))
 	{
-		fill_matrix(data->z_matrix[i], line);
+		fill_matrix(data->z_matrix[i], line, data->width);
 		free(line);
 		i++;
 	}
