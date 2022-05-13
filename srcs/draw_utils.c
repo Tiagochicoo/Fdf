@@ -35,12 +35,12 @@ void    init(fdf*data, img*image)
 	int	width;
 	int	height;
 
+	data->zoom = (data->width / data->height) * 20;
 	width = (data->width / data->height) * 1000;
 	height = (data->width / data->height) * 1000;
-	data->zoom = (width / height) * 20;
 	data->angle = 0.8165;
 	data->pos_x = width / 2;
-	data->pos_y = height / 2;
+	data->pos_y = height / 6;
 	data->elevation = 1;
     //data->angle = 0.523599;
     data->mlx_ptr = mlx_init();
