@@ -6,7 +6,7 @@
 /*   By: tpereira <tpereira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 16:25:21 by tpereira          #+#    #+#             */
-/*   Updated: 2022/04/19 18:19:04 by tpereira         ###   ########.fr       */
+/*   Updated: 2022/05/13 19:40:10 by tpereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,11 @@ int	get_width(char *filename)
 void	fill_matrix(int *z_line, char *line, int width)
 {
 	int		i;
+	int		ii;
 	char	**nums;
 
 	i = 0;
+	ii = 0;
 	nums = ft_split(ft_strdup(line), " ");
 	while(nums[i] && i < width)
 	{
@@ -66,7 +68,7 @@ void	fill_matrix(int *z_line, char *line, int width)
 		//free(nums[i]);
 		i++;
 	}
-	//free(nums);              ?????????????????? WHY ??????????????????
+	//free(*nums);          //    ?????????????????? WHY ??????????????????
 }
 
 void	read_file(char *filename, fdf *data)

@@ -6,14 +6,14 @@
 /*   By: tpereira <tpereira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 16:21:52 by tpereira          #+#    #+#             */
-/*   Updated: 2022/04/21 18:57:18 by tpereira         ###   ########.fr       */
+/*   Updated: 2022/05/13 21:56:41 by tpereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
 
-#include <OpenGL/gl.h>
+//#include <OpenGL/gl.h>
 #include "../minilibx_opengl/mlx.h"
 // #include "../minilibx_opengl/mlx_int.h"
 #include "../libft/includes/libft.h"
@@ -51,8 +51,9 @@ void	draw(fdf*data);
 void	my_mlx_pixel_put(img *img, int x, int y, int color);
 void    actions(fdf*data);
 void    reset(fdf*data);
-void    init(fdf*data, img*image);
+void    init(fdf*data);
 void	start(fdf*data);
 void	print_menu(fdf*data);
+void    blackout(fdf*data);
 
 #endif

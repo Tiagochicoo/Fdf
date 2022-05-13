@@ -6,7 +6,7 @@
 /*   By: tpereira <tpereira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 17:27:30 by tpereira          #+#    #+#             */
-/*   Updated: 2022/04/26 17:26:32 by tpereira         ###   ########.fr       */
+/*   Updated: 2022/05/13 21:38:42 by tpereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,6 @@ void	print_menu(fdf*data)
 int	main(int argc, char **argv)
 {
 	fdf *data;
-	img *image;
 
 	if (argc != 2)
 	{
@@ -130,11 +129,12 @@ int	main(int argc, char **argv)
 		exit(1);
 	}
 	data = (fdf*)malloc(sizeof(fdf));
-	image = (img *)malloc(sizeof(img));
+	data->img = (img *)malloc(sizeof(img));
 	read_file(ft_strdup(argv[1]), data);
-	init(data, image);
+	init(data);
 	draw(data);
 	print_menu(data);
 	actions(data);
+	mlx_loop(data->mlx_ptr);
 	return (0);
 }

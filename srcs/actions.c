@@ -6,7 +6,7 @@
 /*   By: tpereira <tpereira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 18:38:18 by tpereira          #+#    #+#             */
-/*   Updated: 2022/05/05 18:01:32 by tpereira         ###   ########.fr       */
+/*   Updated: 2022/05/13 20:05:22 by tpereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int    escape(int keycode)
 {
 		if (keycode == 53)
-		exit(0);
+			exit(0);
 		return (0);
 }
 
@@ -36,9 +36,15 @@ int    zoom(int keycode, fdf*data)
 	if (keycode == 87 || keycode == 18)
 	{
 		if (data->iso)
+		{
 			data->iso = 0;
+			data->pos_x -= 250;
+		}
 		else
+		{
 			data->iso = 1;
+			data->pos_x += 250;
+		}
 	}
 	reset(data);
 	return (0);
@@ -69,9 +75,9 @@ int	revert(int keycode, fdf*data)
 
 	if (keycode == 51)
 	{
-		width = (data->width / data->height) * 1000;
-		height = (data->width / data->height) * 1000;
-		data->zoom = (width / height) * 20;
+		width = (data->width / data->height) * 10;
+		height = (data->width / data->height) * 10;
+		data->zoom = (data->width / data->height) * 20;
 		data->angle = 0.8165;
 		data->pos_x = width / 2;
 		data->pos_y = height / 2;
@@ -104,7 +110,7 @@ void    actions(fdf*data)
 		while (1)
 		{
 			mlx_key_hook(data->win_ptr, escape, data);
-			mlx_hook(data->win_ptr, 02, 0, move, data); // 04 keys+buttons | 02 only keyboard
+			mlx_hook(data->win_ptr, 2, 0, move, data); // 4 keys+buttons | 2 only keyboard
 			mlx_hook(data->win_ptr, 17, 0, leave, data);
 			mlx_loop(data->mlx_ptr);
 		}

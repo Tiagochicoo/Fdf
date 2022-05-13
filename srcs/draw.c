@@ -6,7 +6,7 @@
 /*   By: tpereira <tpereira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 18:08:41 by tpereira          #+#    #+#             */
-/*   Updated: 2022/05/05 17:57:07 by tpereira         ###   ########.fr       */
+/*   Updated: 2022/05/13 22:26:14 by tpereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	bresenham(float x, float y, float x1, float y1, fdf*data)
 	float	z1;
 
 	//ELEVATION
-	z = (data->z_matrix[(int)y][(int)x]) * data->elevation;
+	z = data->z_matrix[(int)y][(int)x] * data->elevation;
 	z1 = data->z_matrix[(int)y1][(int)x1] * data->elevation;
 	// ZOOM
 	x *= data->zoom;
@@ -76,11 +76,11 @@ void	bresenham(float x, float y, float x1, float y1, fdf*data)
 	y_step /= max;
 	while ((int)(x - x1) || (int)(y - y1))
 	{
-		mlx_pixel_put(data->mlx_ptr, data->win_ptr, x, y, data->color);
+		my_mlx_pixel_put(data->img, x, y, data->color);
+		//mlx_pixel_put(data->mlx_ptr, data->win_ptr, x, y, data->color);
 		x += x_step;
 		y += y_step;
 	}
-	//mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img, 100, 100);
 }
 
 void	draw(fdf*data)
@@ -88,21 +88,20 @@ void	draw(fdf*data)
 	int	x;
 	int	y;
 
+	blackout(data);
 	y = 0;
 	while (y < data->height)
 	{
 		x = 0;
 		while (x < data->width)
 		{
-			if (x < data->width - 1)
-				bresenham(x, y, x + 1, y, data);
 			if (y < data->height - 1)
 				bresenham(x, y, x, y + 1, data);
-			if (x >= data->width || y >= data->height)
-			 	break ;
+			if (x < data->width - 1)
+				bresenham(x, y, x + 1, y, data);
 			x++;
 		}
 		y++;
 	}
-	
+	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img, 200, 0);
 }

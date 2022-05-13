@@ -6,14 +6,14 @@
 /*   By: tpereira <tpereira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 08:59:57 by tpereira          #+#    #+#             */
-/*   Updated: 2022/05/08 14:56:16 by root             ###   ########.fr       */
+/*   Updated: 2022/05/13 17:40:15 by tpereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/libft.h"
 #include <stdio.h>
 
-void	str_alloc(char *str, char *charset, int len, char **str_arr)
+void	str_alloc(const char *str, char *charset, int len, char **str_arr)
 {
 	int		i;
 	int		ii;
@@ -81,6 +81,6 @@ char	**ft_split(char const *str, char *charset)
 			count += 1;
 	}
 	str_arr = malloc(sizeof(char *) * count);
-	str_alloc(ft_strdup(str), charset, len, str_arr);	
+	str_alloc(str, charset, len, str_arr);	
 	return (str_arr);
 }
