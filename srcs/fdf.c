@@ -6,7 +6,7 @@
 /*   By: tpereira <tpereira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 17:27:30 by tpereira          #+#    #+#             */
-/*   Updated: 2022/05/16 18:40:06 by tpereira         ###   ########.fr       */
+/*   Updated: 2022/05/16 18:55:00 by tpereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,10 +113,12 @@ void	print_menu(fdf*data)
 	mlx_string_put(data->mlx_ptr, data->win_ptr, 15, 30, 0xffffff, menu);
 	menu = "+, -: zoom";
 	mlx_string_put(data->mlx_ptr, data->win_ptr, 15, 50, 0xffffff, menu);
-	menu = "*, / : perspective";
+	menu = "5 : toggle perspective";
 	mlx_string_put(data->mlx_ptr, data->win_ptr, 15, 70, 0xffffff, menu);
-	menu = "f: full screen mode";
+	menu = "4, 6: angle";
 	mlx_string_put(data->mlx_ptr, data->win_ptr, 15, 90, 0xffffff, menu);
+	menu = "2, 8: elevation";
+	mlx_string_put(data->mlx_ptr, data->win_ptr, 15, 110, 0xffffff, menu);
 }
 
 int	main(int argc, char **argv)

@@ -6,7 +6,7 @@
 /*   By: tpereira <tpereira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 18:38:18 by tpereira          #+#    #+#             */
-/*   Updated: 2022/05/16 18:42:17 by tpereira         ###   ########.fr       */
+/*   Updated: 2022/05/16 19:18:52 by tpereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,11 @@ int    zoom(int keycode, fdf*data)
 		if (keycode == 78 || keycode == 27)
 			data->zoom -= 1;
 	}
-	if (keycode == 69 || keycode == 24)
-		data->zoom += 1;
+	if (data->zoom < 500)
+	{
+		if (keycode == 69 || keycode == 24)
+			data->zoom += 1;
+	}
 	if (keycode == 87 || keycode == 18)
 	{
 		if (data->iso)

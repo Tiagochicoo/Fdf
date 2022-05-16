@@ -39,7 +39,7 @@ void    init(fdf*data)
 		data->zoom = (data->win_y / data->height);
 	data->zoom = data->zoom * 0.7;
     //data->angle = 0.523599;
-	data->angle = 0.8165;
+	data->angle = 0.9565;
 	data->pos_x = data->win_x / 2;
 	data->pos_y = data->win_y / 6;
 	data->elevation = 1;

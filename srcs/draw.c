@@ -6,7 +6,7 @@
 /*   By: tpereira <tpereira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 18:08:41 by tpereira          #+#    #+#             */
-/*   Updated: 2022/05/16 18:39:57 by tpereira         ###   ########.fr       */
+/*   Updated: 2022/05/16 19:18:19 by tpereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 {
 	char	*dst;
 
-	dst = img->addr + (y * img->line_length + x * (img->bpp / 8));
+	dst = img->addr + (y * 4000 + x * (img->bpp / 8));
 	*(unsigned int*)dst = color;
 }
 
@@ -75,6 +75,8 @@ void	bresenham(float x, float y, float x1, float y1, fdf*data)
 	y_step /= max;
 	while ((int)(x - x1) || (int)(y - y1))
 	{
+		if (x > data->win_x || y > data->win_y || x < 0 || y < 0)
+			break ;
 		my_mlx_pixel_put(&data->img, x, y + 1, data->color);
 		//mlx_pixel_put(data->mlx_ptr, data->win_ptr, x, y, data->color);
 		x += x_step;
