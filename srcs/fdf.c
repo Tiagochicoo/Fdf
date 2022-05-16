@@ -6,7 +6,7 @@
 /*   By: tpereira <tpereira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 17:27:30 by tpereira          #+#    #+#             */
-/*   Updated: 2022/05/13 21:38:42 by tpereira         ###   ########.fr       */
+/*   Updated: 2022/05/16 18:40:06 by tpereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,6 @@ int	main(int argc, char **argv)
 		exit(1);
 	}
 	data = (fdf*)malloc(sizeof(fdf));
-	data->img = (img *)malloc(sizeof(img));
 	read_file(ft_strdup(argv[1]), data);
 	init(data);
 	draw(data);
