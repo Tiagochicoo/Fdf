@@ -6,7 +6,7 @@
 /*   By: tpereira <tpereira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 08:59:57 by tpereira          #+#    #+#             */
-/*   Updated: 2022/05/17 21:01:51 by tpereira         ###   ########.fr       */
+/*   Updated: 2022/05/17 22:11:33 by tpereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,8 @@ char	**ft_split(char const *str, char *charset)
 		if (i > j)
 			count += 1;
 	}
-	str_arr = malloc(sizeof(char *) * count);
+	str_arr = malloc(sizeof(char *) * (count + 1));
 	str_alloc(str, charset, len, str_arr);
+	str_arr[count] = NULL;
 	return (str_arr);
 }
