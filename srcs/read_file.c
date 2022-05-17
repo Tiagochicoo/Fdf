@@ -6,7 +6,7 @@
 /*   By: tpereira <tpereira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 16:25:21 by tpereira          #+#    #+#             */
-/*   Updated: 2022/05/13 19:40:10 by tpereira         ###   ########.fr       */
+/*   Updated: 2022/05/17 21:25:53 by tpereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	get_height(char *filename)
 		ft_printf("Error: failed to open\n");
 		exit(1);
 	}
-	while(get_next_line(fd, &line))
+	while (get_next_line(fd, &line))
 	{
 		height++;
 		free(line);
@@ -36,9 +36,9 @@ int	get_height(char *filename)
 
 int	get_width(char *filename)
 {
-	int	width;
-	int	fd;
-	char *line;
+	int		width;
+	int		fd;
+	char	*line;
 
 	fd = open(filename, O_RDONLY, 0);
 	if (fd < 0)
@@ -56,32 +56,28 @@ int	get_width(char *filename)
 void	fill_matrix(int *z_line, char *line, int width)
 {
 	int		i;
-	int		ii;
 	char	**nums;
 
 	i = 0;
-	ii = 0;
-	nums = ft_split(ft_strdup(line), " ");
-	while(nums[i] && i < width)
+	nums = ft_split(line, " ");
+	while (nums[i] && i < width)
 	{
 		z_line[i] = ft_atoi(nums[i]);
-		//free(nums[i]);
-		i++;
+		free(nums[i++]);
 	}
-	//free(*nums);          //    ?????????????????? WHY ??????????????????
+	free(nums);
 }
 
-void	read_file(char *filename, fdf *data)
+void	read_file(char *filename, t_fdf *data)
 {
-	int i;
-	int	fd;
-	char *line;
+	int		i;
+	int		fd;
+	char	*line;
 
 	i = 0;
 	data->height = get_height(filename);
 	data->width = get_width(filename);
-
-	data->z_matrix = (int **)malloc(sizeof(int*) * (data->height + 1));
+	data->z_matrix = (int **)malloc(sizeof(int *) * (data->height + 1));
 	while (i <= data->height)
 		data->z_matrix[i++] = (int *)malloc(sizeof(int) * (data->width + 1));
 	fd = open(filename, O_RDONLY, 0);

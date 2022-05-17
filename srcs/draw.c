@@ -6,88 +6,110 @@
 /*   By: tpereira <tpereira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 18:08:41 by tpereira          #+#    #+#             */
-/*   Updated: 2022/05/16 19:18:19 by tpereira         ###   ########.fr       */
+/*   Updated: 2022/05/17 21:19:52 by tpereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 
-#define MAX(a, b) (a > b ? a : b)
-#define MOD(a) ((a < 0) ? -a : a)
-
-void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
+void	my_mlx_pixel_put(t_fdf *data, int x, int y, int color)
 {
 	char	*dst;
 
-	dst = img->addr + (y * 4000 + x * (img->bpp / 8));
-	*(unsigned int*)dst = color;
+	if (x < data->win_x && y < data->win_y && x > 0 && y > 0)
+	{
+		dst = data->img.addr + (y * data->img.line_length + x
+				* (data->img.bpp / 8));
+		*(unsigned int *)dst = color;
+	}
 }
 
-float	mod(float i)
+float	max_num(float a, float b)
 {
-	return (i < 0) ? -i : i;
+	if (a < b)
+		return (b);
+	return (a);
 }
 
-void	isometric(float *x, float *y, float z, fdf*data)
+float	module(float i)
 {
-	*x = (*x - *y) * cos(data->angle);
-	*y = (*x + *y) * sin(data->angle) - z;
+	if (i < 0)
+		return (-i);
+	return (i);
 }
 
-void	bresenham(float x, float y, float x1, float y1, fdf*data)
+void	isometric(float *x, float *y, float z, t_fdf*data)
 {
-	float	x_step;
-	float	y_step;
-	int		max;
-	float	z;
-	float	z1;
+	*x = (*x - *y) * cos(data->angle_x);
+	*y = (*x + *y) * sin(data->angle_y) - z;
+}
 
-	//ELEVATION
-	z = data->z_matrix[(int)y][(int)x] * data->elevation;
-	z1 = data->z_matrix[(int)y1][(int)x1] * data->elevation;
-	// ZOOM
-	x *= data->zoom;
-	y *= data->zoom;
-	x1 *= data->zoom;
-	y1 *= data->zoom;
-	// COLOR
-	if (z > 0 || z1 > 0)
-		data->color = 0xFD7F20;
-	else if (z < 0 || z1 < 0)
-		data->color = 0x0083FF;
+int	set_color(t_info info)
+{
+	if (info.z > 0 || info.z1 > 0)
+		return (0xFD7F20);
+	else if (info.z < 0 || info.z1 < 0)
+		return (0x0083FF);
 	else
-		data->color = 0xffffff;
-	// ISOMETRIC (3D)
+		return (0xffffff);
+}
+
+void	set_iso(t_info *info, t_fdf *data)
+{
 	if (data->iso)
 	{
-		isometric(&x, &y, z, data);
-		isometric(&x1, &y1, z1, data);
-	}
-	// SHIFT
-	x += data->pos_x;
-	y += data->pos_y;
-	x1 += data->pos_x;
-	y1 += data->pos_y;
-	x_step = x1 - x;
-	y_step = y1 - y;
-	max = MAX(MOD(x_step), MOD(y_step));
-	x_step /= max;
-	y_step /= max;
-	while ((int)(x - x1) || (int)(y - y1))
-	{
-		if (x > data->win_x || y > data->win_y || x < 0 || y < 0)
-			break ;
-		my_mlx_pixel_put(&data->img, x, y + 1, data->color);
-		//mlx_pixel_put(data->mlx_ptr, data->win_ptr, x, y, data->color);
-		x += x_step;
-		y += y_step;
+		isometric(&info->x, &info->y, info->z, data);
+		isometric(&info->x1, &info->y1, info->z1, data);
 	}
 }
 
-void	draw(fdf*data)
+void	set_pos(t_info *info, t_fdf *data)
+{
+	info->x += data->pos_x;
+	info->y += data->pos_y;
+	info->x1 += data->pos_x;
+	info->y1 += data->pos_y;
+}
+
+void	set_step(t_info *info)
+{
+	info->x_step = info->x1 - info->x;
+	info->y_step = info->y1 - info->y;
+	info->max = max_num(module(info->x_step), module(info->y_step));
+	info->x_step /= info->max;
+	info->y_step /= info->max;
+}
+
+void	bresenham(int coord[], float x1, float y1, t_fdf*data)
+{
+	t_info	info;
+
+	info.x = coord[0];
+	info.y = coord[1];
+	info.z = data->z_matrix[(int)info.y][(int)info.x] * data->elevation;
+	info.z1 = data->z_matrix[(int)y1][(int)x1] * data->elevation;
+	info.x *= data->zoom;
+	info.y *= data->zoom;
+	info.x1 = x1 * data->zoom;
+	info.y1 = y1 * data->zoom;
+
+	data->color = set_color(info);
+	set_iso(&info, data);
+	set_pos(&info, data);
+	set_step(&info);
+	while ((int)(info.x - info.x1) || (int)(info.y - info.y1))
+	{
+		my_mlx_pixel_put(data, info.x, info.y + 1, data->color);
+		info.x += info.x_step;
+		info.y += info.y_step;
+	}
+}
+
+void	draw(t_fdf*data)
 {
 	int	x;
 	int	y;
+	int	coord[2];
 
 	blackout(data);
 	y = 0;
@@ -96,10 +118,12 @@ void	draw(fdf*data)
 		x = 0;
 		while (x < data->width)
 		{
+			coord[1] = y;
+			coord[0] = x;
 			if (y < data->height - 1)
-				bresenham(x, y, x, y + 1, data);
+				bresenham(coord, x, y + 1, data);
 			if (x < data->width - 1)
-				bresenham(x, y, x + 1, y, data);
+				bresenham(coord, x + 1, y, data);
 			else
 				break ;
 			x++;

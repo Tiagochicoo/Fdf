@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/fdf",
-            "args": ["${workspaceFolder}/maps/pyramide.fdf"],
+            "args": ["${workspaceFolder}/maps/42.fdf"],
             "stopAtEntry": true,
             "cwd": "${fileDirname}",
             "environment": [],
