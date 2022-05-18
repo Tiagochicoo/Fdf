@@ -6,11 +6,11 @@
 /*   By: tpereira <tpereira@42Lisboa.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 17:18:29 by tpereira          #+#    #+#             */
-/*   Updated: 2021/05/26 15:27:45 by tpereira         ###   ########.fr       */
+/*   Updated: 2022/05/18 23:28:01 by tpereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../includes/ft_printf.h"
 
 t_flag	*new_flags(void)
 {
@@ -55,7 +55,7 @@ void	set_struct(char *input, t_arg *arg_struct, va_list *args)
 	input++;
 	set_flags(&input, arg_struct);
 	set_width(&input, arg_struct, args);
-	set_precision(&input, arg_struct);
+	set_precision(&input, arg_struct, args);
 	set_modifiers(&input, arg_struct);
 	set_specifier(&input, arg_struct);
 	set_type(arg_struct);

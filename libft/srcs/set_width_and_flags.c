@@ -5,37 +5,29 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: tpereira <tpereira@42Lisboa.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/20 21:12:17 by tpereira          #+#    #+#             */
-/*   Updated: 2021/05/25 16:55:01 by tpereira         ###   ########.fr       */
+/*   Created: 2021/05/26 09:48:57 by tpereira          #+#    #+#             */
+/*   Updated: 2022/05/18 20:53:05 by tpereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../includes/ft_printf.h"
 
 void	set_flags(char **input, t_arg *arg_struct)
 {
-	while (**input == '-' || **input == '0' || **input == '.'
-		|| **input == '*' || **input == ' ' || **input == '#'
-		|| **input == '+' || **input == 'l' || **input == 'h')
+	while (**input == '-' || **input == '0' || **input == '*')
 	{
 		if (**input == '-')
 			arg_struct->flags->has_minusflag = 1;
-		else if (**input == '0')
+		if (**input == '0')
 			arg_struct->flags->has_zeroflag = 1;
-		else if (**input == '.')
-			arg_struct->flags->has_dotflag = 1;
-		else if (**input == '*')
+		if (**input == '*')
 			arg_struct->flags->has_starflag = 1;
-		else if (**input == ' ')
-			arg_struct->flags->has_spaceflag = 1;
-		else if (**input == '#')
+		if (**input == '#')
 			arg_struct->flags->has_hashflag = 1;
-		else if (**input == '+')
+		if (**input == ' ')
+			arg_struct->flags->has_spaceflag = 1;
+		if (**input == '+')
 			arg_struct->flags->has_plusflag = 1;
-		else if (**input == 'l')
-			arg_struct->flags->has_lflag = 1;
-		else if (**input == 'h')
-			arg_struct->flags->has_hflag = 1;
 		(*input)++;
 	}
 }
@@ -44,14 +36,11 @@ void	set_width(char **input, t_arg *arg_struct, va_list *args)
 {
 	char	num_str[12];
 	int		i;
-	int		a;
 
 	if (arg_struct->flags->has_starflag)
 	{
-		a = va_arg(*args, int);
-		arg_struct->fieldwidth = a;
-		if (a < 0)
-			arg_struct->flags->has_minusflag = 1;
+		i = va_arg(*args, int);
+		arg_struct->fieldwidth = i;
 	}
 	else
 	{
@@ -64,34 +53,38 @@ void	set_width(char **input, t_arg *arg_struct, va_list *args)
 		}
 		num_str[i] = '\0';
 		arg_struct->fieldwidth = ft_atoi(num_str);
+		if (arg_struct->flags->has_minusflag)
+			arg_struct->fieldwidth *= -1;
 	}
 }
 
-void 	set_precision(char **input, t_arg *arg_struct)
+void	set_precision(char **input, t_arg *arg_struct, va_list *args)
 {
 	char	num_str[12];
 	int		i;
 
 	if (**input == '.')
 	{
-		input++;
-		if (**input >= '0' && **input <= '9')
+		(*input)++;
+		if (ft_isdigit(**input))
 		{
 			i = 0;
-			while (**input >= '0' && **input <= '9')
+			while (ft_isdigit(**input))
 			{
 				num_str[i] = **input;
-				input++;
+				(*input)++;
 				i++;
 			}
 			num_str[i] = '\0';
 			arg_struct->precision = ft_atoi(num_str);
 		}
+		else if (**input == '*')
+			arg_struct->precision = va_arg(*args, int);
 		else
 			arg_struct->precision = 0;
 	}
-	while (**input == '.' || (**input > '0' && **input < '9'))
-		input++;
+	while (**input == '.' || ft_isdigit(**input) || **input == '*')
+		(*input)++;
 }
 
 void	clean_flags(t_arg *arg_struct)
@@ -99,6 +92,8 @@ void	clean_flags(t_arg *arg_struct)
 	if (arg_struct->flags->has_spaceflag && arg_struct->flags->has_plusflag)
 		arg_struct->flags->has_spaceflag = 0;
 	if (arg_struct->flags->has_zeroflag && arg_struct->flags->has_minusflag)
+		arg_struct->flags->has_zeroflag = 0;
+	if (arg_struct->flags->has_zeroflag && arg_struct->precision != -1)
 		arg_struct->flags->has_zeroflag = 0;
 	if (arg_struct->flags->has_zeroflag && arg_struct->precision != -1)
 		arg_struct->flags->has_zeroflag = 0;

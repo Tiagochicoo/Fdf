@@ -6,11 +6,11 @@
 /*   By: tpereira <tpereira@42Lisboa.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 19:24:55 by tpereira          #+#    #+#             */
-/*   Updated: 2021/05/24 19:03:24 by tpereira         ###   ########.fr       */
+/*   Updated: 2022/05/18 23:28:43 by tpereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../includes/ft_printf.h"
 
 void	set_type(t_arg *arg_struct)
 {

@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpereira <tpereira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tpereira <tpereira@42Lisboa.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 17:04:32 by tpereira          #+#    #+#             */
-/*   Updated: 2022/04/11 18:10:45 by tpereira         ###   ########.fr       */
+/*   Updated: 2022/05/18 23:27:45 by tpereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "../includes/get_next_line.h"
 
 static	int	ft_saveline(char **save, char **line)
 {
-	int	len;
-	char *temp;
+	int		len;
+	char	*temp;
 
 	len = 0;
 	temp = NULL;
@@ -51,23 +51,25 @@ static int	ft_output(char **save, char **line, int r, int fd)
 		return (ft_saveline(&save[fd], line));
 }
 
-int get_next_line(int fd, char **line)
+int	get_next_line(int fd, char **line)
 {
 	int			r;
 	static char	*save[OPEN_MAX];
-	char 		*temp;
-	char 		buff[BUFFER_SIZE + 1];
+	char		*temp;
+	char		buff[BUFFER_SIZE + 1];
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || !line || read(fd, buff, 0) < 0)
 		return (-1);
-	while ((r = read(fd, buff, BUFFER_SIZE)) > 0)
+	r = 1;
+	while (r > 0)
 	{
+		r = read(fd, buff, BUFFER_SIZE);
 		buff[r] = '\0';
 		if (save[fd] == NULL)
 			save[fd] = ft_strdup(buff);
 		else
 		{
-			temp = ft_strjoin(save[fd], buff); 
+			temp = ft_strjoin(save[fd], buff);
 			free(save[fd]);
 			save[fd] = temp;
 		}

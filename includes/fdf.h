@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpereira <tpereira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tpereira <tpereira@42Lisboa.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 16:21:52 by tpereira          #+#    #+#             */
-/*   Updated: 2022/05/17 20:39:40 by tpereira         ###   ########.fr       */
+/*   Updated: 2022/05/18 20:47:46 by tpereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,5 +73,10 @@ void	init(t_fdf*data);
 void	start(t_fdf*data);
 void	print_menu(t_fdf*data);
 void	blackout(t_fdf*data);
+int		set_color(t_info info);
+void	set_iso(t_info *info, t_fdf *data);
+void	set_pos(t_info *info, t_fdf *data);
+void	set_step(t_info *info);
+void	isometric(float *x, float *y, float z, t_fdf*data);
 
 #endif

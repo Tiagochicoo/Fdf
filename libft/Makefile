@@ -6,21 +6,24 @@
 #    By: tpereira <tpereira@42Lisboa.com>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/08 22:20:21 by tpereira          #+#    #+#              #
-#    Updated: 2021/09/17 18:29:02 by tpereira         ###   ########.fr        #
+#    Updated: 2022/05/18 23:45:04 by tpereira         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-INC_PATH = includes
+INC_PATH = -Iincludes
 SRCS = $(wildcard ./srcs/*.c)
 OBJS =  $(SRCS:.c=.o)
 NAME =  libft.a
 SO =    libft.so
 
 .c.o:
-	$(CC) -g $(CFLAGS) -c $^ -o $(<:.c=.o) -I $(INC_PATH)
-all:        $(NAME)
+	$(CC) -g $(CFLAGS) -fPIC -c $^ -o $(<:.c=.o) -I $(INC_PATH)
+all:		$(NAME)
+so:			$(SO)
 $(NAME):	$(OBJS)
 	ar -rcs $(NAME) $(OBJS)
+$(SO):		$(OBJS)
+	gcc -shared -o $(SO) $^
 clean:
 	rm -f ./srcs/*.o
 soclean:    clean
@@ -29,7 +32,5 @@ fclean:     clean
 	rm -f $(NAME)
 	rm -f $(SO)
 re:         fclean all
-so:         $(OBJS) 
-	gcc -shared -o $(SO) $(OBJS)
 
 .PHONY: so bonus re fclean soclean clean all

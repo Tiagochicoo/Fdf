@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpereira <tpereira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tpereira <tpereira@42Lisboa.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 18:08:41 by tpereira          #+#    #+#             */
-/*   Updated: 2022/05/17 21:19:52 by tpereira         ###   ########.fr       */
+/*   Updated: 2022/05/18 20:45:39 by tpereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,36 +22,6 @@ void	my_mlx_pixel_put(t_fdf *data, int x, int y, int color)
 				* (data->img.bpp / 8));
 		*(unsigned int *)dst = color;
 	}
-}
-
-float	max_num(float a, float b)
-{
-	if (a < b)
-		return (b);
-	return (a);
-}
-
-float	module(float i)
-{
-	if (i < 0)
-		return (-i);
-	return (i);
-}
-
-void	isometric(float *x, float *y, float z, t_fdf*data)
-{
-	*x = (*x - *y) * cos(data->angle_x);
-	*y = (*x + *y) * sin(data->angle_y) - z;
-}
-
-int	set_color(t_info info)
-{
-	if (info.z > 0 || info.z1 > 0)
-		return (0xFD7F20);
-	else if (info.z < 0 || info.z1 < 0)
-		return (0x0083FF);
-	else
-		return (0xffffff);
 }
 
 void	set_iso(t_info *info, t_fdf *data)
@@ -71,15 +41,6 @@ void	set_pos(t_info *info, t_fdf *data)
 	info->y1 += data->pos_y;
 }
 
-void	set_step(t_info *info)
-{
-	info->x_step = info->x1 - info->x;
-	info->y_step = info->y1 - info->y;
-	info->max = max_num(module(info->x_step), module(info->y_step));
-	info->x_step /= info->max;
-	info->y_step /= info->max;
-}
-
 void	bresenham(int coord[], float x1, float y1, t_fdf*data)
 {
 	t_info	info;
@@ -92,7 +53,6 @@ void	bresenham(int coord[], float x1, float y1, t_fdf*data)
 	info.y *= data->zoom;
 	info.x1 = x1 * data->zoom;
 	info.y1 = y1 * data->zoom;
-
 	data->color = set_color(info);
 	set_iso(&info, data);
 	set_pos(&info, data);
@@ -111,7 +71,6 @@ void	draw(t_fdf*data)
 	int	y;
 	int	coord[2];
 
-	blackout(data);
 	y = 0;
 	while (y < data->height)
 	{

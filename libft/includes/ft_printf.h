@@ -6,7 +6,7 @@
 /*   By: tpereira <tpereira@42Lisboa.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/03 14:47:48 by tpereira          #+#    #+#             */
-/*   Updated: 2021/09/17 17:15:50 by tpereira         ###   ########.fr       */
+/*   Updated: 2022/05/18 23:30:18 by tpereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <stdio.h>
 # include <stdarg.h>
 # include <stdint.h>
-# include "./libft.h"
+# include "libft.h"
 
 int		ft_printf(const char *format, ...);
 
@@ -60,6 +60,14 @@ typedef struct s_arg {
 	wchar_t	*wstr;
 }	t_arg;
 
+int		print_c(t_arg *ptr_arg_struct);
+int		print_s(t_arg *ptr_arg_struct);
+int		print_x(t_arg *ptr_arg_struct);
+int		print_di(t_arg *ptr_arg_struct);
+int		print_p(t_arg *ptr_arg_struct);
+int		print_u(t_arg *ptr_arg_struct);
+int		print_escape(t_arg *ptr_arg_struct);
+
 char	*read_str(char **str);
 t_arg	read_arg(char *input, va_list *args);
 
@@ -70,7 +78,7 @@ t_flag	*new_flags(void);
 
 void	set_flags(char **str_block, t_arg *ptr_arg_struct);
 void	set_width(char **str_block, t_arg *ptr_arg_struct, va_list *args);
-void	set_precision(char **str_block, t_arg *ptr_arg_struct);
+void	set_precision(char **str_block, t_arg *ptr_arg_struct, va_list *args);
 void	set_modifiers(char **str_block, t_arg *ptr_arg_struct);
 void	set_specifier(char **str_block, t_arg *ptr_arg_struct);
 void	set_type(t_arg *ptr_arg_struct);
@@ -87,6 +95,7 @@ void	manage_zero_width(t_arg *ptr_arg_struct);
 void	manage_hash(t_arg *ptr_arg_struct);
 void	manage_sign(t_arg *ptr_arg_struct);
 void	apply_widths_and_flags(t_arg *ptr_arg_struct);
+
 
 # define FLAGS "-0.*#+lh"
 # define DIGITS "0123456789"
