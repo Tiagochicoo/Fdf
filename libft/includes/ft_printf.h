@@ -6,7 +6,7 @@
 /*   By: tpereira <tpereira@42Lisboa.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/03 14:47:48 by tpereira          #+#    #+#             */
-/*   Updated: 2022/05/18 23:30:18 by tpereira         ###   ########.fr       */
+/*   Updated: 2022/05/18 23:56:46 by tpereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void	manage_zero_width(t_arg *ptr_arg_struct);
 void	manage_hash(t_arg *ptr_arg_struct);
 void	manage_sign(t_arg *ptr_arg_struct);
 void	apply_widths_and_flags(t_arg *ptr_arg_struct);
-
+int		get_zero_field_len(t_arg *arg_struct);
 
 # define FLAGS "-0.*#+lh"
 # define DIGITS "0123456789"

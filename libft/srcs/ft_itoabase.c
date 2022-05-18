@@ -6,7 +6,7 @@
 /*   By: tpereira <tpereira@42Lisboa.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/05 08:53:07 by tpereira          #+#    #+#             */
-/*   Updated: 2022/05/18 23:27:23 by tpereira         ###   ########.fr       */
+/*   Updated: 2022/05/18 23:53:32 by tpereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char	*ft_itoabase(long n, int base)
 		str[0] = '0';
 	while (n != 0)
 	{
-		str[--len] = rep_str[(n % base)*i];
+		str[--len] = rep_str[(n % base) * i];
 		n /= base;
 	}
 	return (str);

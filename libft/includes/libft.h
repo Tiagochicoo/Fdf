@@ -6,7 +6,7 @@
 /*   By: tpereira <tpereira@42Lisboa.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 23:02:16 by tpereira          #+#    #+#             */
-/*   Updated: 2022/05/18 23:23:45 by tpereira         ###   ########.fr       */
+/*   Updated: 2022/05/18 23:55:02 by tpereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,6 @@ wchar_t			*ft_wchrtostr(wchar_t wchar);
 char			*ft_itoabase(long num, int base);
 char			*ft_strrev(char *str);
 int				get_next_line(int fd, char **line);
-long long 		ft_word_count(char *str, char charset);
+long long		ft_word_count(char *str, char charset);
 
 #endif
