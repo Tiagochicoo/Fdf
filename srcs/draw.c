@@ -71,6 +71,7 @@ void	draw(t_fdf*data)
 	int	y;
 	int	coord[2];
 
+	blackout(data);
 	y = 0;
 	while (y < data->height)
 	{

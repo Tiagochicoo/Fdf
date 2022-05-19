@@ -60,7 +60,7 @@ void	fill_matrix(int *z_line, char *line, int width)
 
 	i = 0;
 	nums = ft_split(line, " ");
-	while (nums[i] && i < width)
+	while (nums[i] && i <= width)
 	{
 		z_line[i] = ft_atoi(nums[i]);
 		free(nums[i++]);

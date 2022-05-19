@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpereira <tpereira@42Lisboa.com>           +#+  +:+       +#+        */
+/*   By: tpereira <tpereira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 08:59:57 by tpereira          #+#    #+#             */
-/*   Updated: 2022/05/18 22:55:35 by tpereira         ###   ########.fr       */
+/*   Updated: 2022/05/17 23:34:06 by tpereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,12 @@ void	str_alloc(const char *str, char *charset, int i, char **str_arr)
 	count[3] = ft_strlen(str);
 	while (i < count[3])
 	{
-		while (i++ < count[3])
+		while (i < count[3])
+		{
 			if (ft_strchr(charset, str[i]) == NULL)
 				break ;
+			i++;
+		}
 		count[1] = 0;
 		while (i < count[3])
 		{

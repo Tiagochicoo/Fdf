@@ -44,7 +44,7 @@ int	main(int argc, char **argv)
 		exit(1);
 	}
 	data = (t_fdf *)malloc(sizeof(t_fdf));
-	read_file(ft_strdup(argv[1]), data);
+	read_file(argv[1], data);
 	init(data);
 	draw(data);
 	print_menu(data);
