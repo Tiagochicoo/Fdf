@@ -76,7 +76,7 @@ char	**ft_split(char const *str, char *charset)
 			count += 1;
 	}
 	str_arr = malloc(sizeof(char *) * (count + 1));
-	str_alloc(str, charset, 0, str_arr);
 	str_arr[count] = NULL;
+	str_alloc(str, charset, 0, str_arr);
 	return (str_arr);
 }
